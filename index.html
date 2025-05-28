@@ -1,99 +1,118 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TikTok SHOP BY Thewarit Poom</title>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Prompt', sans-serif;
-      background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+      background: linear-gradient(120deg, #f9f9f9, #e0f7fa);
       color: #333;
-    }
-
-    header {
-      background-color: #000;
-      color: #fff;
-      padding: 20px 10px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 20px;
       padding: 20px;
-      max-width: 960px;
-      margin: auto;
     }
 
-    .category {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    h1 {
       text-align: center;
-      padding: 20px 10px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: #2c3e50;
+      font-size: 28px;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
     }
 
-    .category:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    ul.product-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 800px;
     }
 
-    .category a {
-      text-decoration: none;
-      color: #222;
-      font-weight: 600;
-      font-size: 16px;
+    li.product {
+      background: #fff;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    li.product:hover {
+      transform: scale(1.01);
+    }
+
+    .product img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
       display: block;
     }
 
-    .category-icon {
-      font-size: 32px;
-      margin-bottom: 10px;
+    .product-content {
+      padding: 15px;
     }
 
-    footer {
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
-      background: #eee;
-      color: #777;
-      margin-top: 40px;
+    .product h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+
+    .product a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: #ff5252;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+      font-weight: bold;
+    }
+
+    .product a:hover {
+      background: #e53935;
     }
 
     @media (max-width: 600px) {
-      header {
-        font-size: 20px;
+      .product h2 {
+        font-size: 16px;
+      }
+
+      .product a {
+        padding: 8px 12px;
+        font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
+  <h1>TikTok SHOP BY Thewarit Poom</h1>
 
-  <header>
-    TikTok SHOP BY Thewarit Poom
-  </header>
+  <ul class="product-list">
+    <!-- สินค้าชิ้นที่ 1 -->
+    <li class="product">
+      <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="สินค้า 1">
+      <div class="product-content">
+        <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ความแม่นยำสูง ปรับ DPI ได้ รุ่น WG9</h2>
+        <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ดูสินค้า</a>
+      </div>
+    </li>
 
-  <section class="categories">
-    <div class="category"><a href="keyboard.html">⌨️ <div class="category-icon"></div>คีย์บอร์ด</a></div>
-    <div class="category"><a href="mouse.html">🖱️ <div class="category-icon"></div>เม้าส์</a></div>
-    <div class="category"><a href="joystick.html">🎮 <div class="category-icon"></div>จอยเกม</a></div>
-    <div class="category"><a href="keycap.html">🔤 <div class="category-icon"></div>คีย์แคป</a></div>
-    <div class="category"><a href="laptop.html">💻 <div class="category-icon"></div>โน๊ตบุ๊ค</a></div>
-    <div class="category"><a href="monitor.html">🖥️ <div class="category-icon"></div>จอมอนิเตอร์</a></div>
-    <div class="category"><a href="decor.html">✨ <div class="category-icon"></div>อุปกรณ์ตกแต่ง</a></div>
-  </section>
-
-  <footer>
-    © 2025 TikTok SHOP BY Thewarit Poom
-  </footer>
-
+    <!-- สินค้าชิ้นที่ 2 -->
+    <li class="product">
+      <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25.webp" alt="สินค้า 2">
+      <div class="product-content">
+        <h2>FANTECH รุ่น WGP13S จอยเกมมิ่ง คอนโทรลเลอร์ รูปทรง XBOX Wireless 2.4GHz</h2>
+        <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ดูสินค้า</a>
+      </div>
+    </li>
+    
+    <!-- เพิ่มสินค้าใหม่ตรงนี้ได้เลย -->
+  </ul>
 </body>
 </html>
