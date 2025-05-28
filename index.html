@@ -7,91 +7,106 @@
     <link rel="icon" href="favicon.ico">
     <meta name="description" content="รวมสินค้าเกมเมอร์ TikTok SHOP BY Thewarit Poom">
 
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(to right, #ece9e6, #ffffff);
-            color: #333;
-        }
+   <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: url('https://wallpapers.com/images/hd/tiktok-logo-patterns-apgm6olmczc7cxq7.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
+        position: relative;
+    }
 
-        h1 {
-            text-align: center;
-            font-size: 32px;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
+    /* เพิ่มเลเยอร์พื้นหลังโปร่งใสสีขาว */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.85);
+        z-index: -1;
+    }
 
-        .product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    h1 {
+        text-align: center;
+        font-size: 32px;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
 
-        .product {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-        .product:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
+    .product {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
 
-        .product img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+    .product:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
 
-        .product h2 {
-            font-size: 18px;
-            margin: 16px;
-            color: #333;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            height: 72px;
-        }
+    .product img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
 
-        .product a {
-            margin: 0 16px 16px;
-            padding: 12px 0;
-            text-align: center;
-            background-color: #ff6b6b;
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-        }
+    .product h2 {
+        font-size: 18px;
+        margin: 16px;
+        color: #333;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 72px;
+    }
 
-        .product a:hover {
-            background-color: #e84141;
-        }
-    </style>
+    .product a {
+        margin: 0 16px 16px;
+        padding: 12px 0;
+        text-align: center;
+        background-color: #ff6b6b;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+    }
+
+    .product a:hover {
+        background-color: #e84141;
+    }
+</style>
+
 </head>
 <body>
 
-    <h1>สินค้าพร้อมส่ง</h1>
+    <h1>TikTok SHOP BY Thewarit Poom</h1>
 
     <div class="product-list">
         <!-- สินค้าชิ้นที่ 1 -->
         <div class="product">
             <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="FANTECH WIRELESS MOUSE WG9">
-            <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ความแม่นยำสูงปรับ DPI ได้ 800-2000 น้ำหนักเบา รุ่น WG9</h2>
+            <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ความแม่นยำสูงปรับ DPI ได้ น้ำหนักเบา รุ่น WG9</h2>
             <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ดูสินค้า</a>
         </div>
 
