@@ -31,16 +31,6 @@
       z-index: -1;
     }
 
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.95); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
     h1 {
       font-family: 'Anton', sans-serif;
       font-size: 44px;
@@ -58,9 +48,6 @@
       font-family: 'Prompt', sans-serif;
       font-size: 20px;
       font-weight: normal;
-      text-transform: none;
-      letter-spacing: 0;
-      margin-top: 1px;
       color: #ffffffcc;
     }
 
@@ -70,7 +57,6 @@
       color: #ffffff;
       margin: 20px 0 30px;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-      animation: fadeInUp 0.8s ease-out;
     }
 
     .product-list {
@@ -86,15 +72,9 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
-      animation: fadeInUp 0.6s ease both;
-    }
-
-    .product:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      position: relative;
     }
 
     .product img {
@@ -132,11 +112,28 @@
       box-shadow: 0 6px 14px rgba(255, 75, 43, 0.5);
     }
 
+    .badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #ff3b3b;
+      color: white;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
     @media (min-width: 600px) {
       .product h2 {
         font-size: 15px;
       }
-
       .product a {
         font-size: 15px;
       }
@@ -154,6 +151,7 @@
   <div class="product-list">
     <!-- สินค้า 1 -->
     <div class="product">
+      <span class="badge">ขายดี</span>
       <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="FANTECH WG9" />
       <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ปรับ DPI ได้ น้ำหนักเบา รุ่น WG9</h2>
       <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ซื้อสินค้า</a>
@@ -168,6 +166,7 @@
 
     <!-- สินค้า 3 -->
     <div class="product">
+      <span class="badge">ขายดี</span>
       <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25@resize_w900_nl.webp" alt="FANTECH WGP13S" />
       <h2>FANTECH WGP13S จอยเกมมิ่งสไตล์ X-BOX Wireless 2.4Ghz</h2>
       <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ซื้อสินค้า</a>
@@ -189,6 +188,7 @@
 
     <!-- สินค้า 6 -->
     <div class="product">
+      <span class="badge">ขายดี</span>
       <img src="https://down-th.img.susercontent.com/file/sg-11134201-7rd60-m71pve3dzixmc8.webp" alt="Ajazz AK680 Max" />
       <h2>Ajazz AK680 Max คีย์บอร์ดสวิตช์แม่เหล็ก 8K Rate, 0.125 ms</h2>
       <a href="https://vt.tiktok.com/ZSk1dtCpC/" target="_blank">ซื้อสินค้า</a>
