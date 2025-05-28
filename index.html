@@ -1,117 +1,229 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <title>TikTok SHOP BY Thewarit Poom</title>
-    <link rel="icon" href="favicon.ico">
-    <meta name="description" content="รวมสินค้าเกมเมอร์ TikTok SHOP BY Thewarit Poom">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>TikTokSHOP</title>
+  <link rel="icon" href="favicon.ico" />
+  <meta name="description" content="รวมสินค้าเกมเมอร์ TikTokSHOP BY Thewarit Poom" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Prompt&display=swap" rel="stylesheet" />
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      position: relative;
+      overflow-x: hidden;
+      z-index: 0;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: url('https://wallpapers.com/images/hd/tiktok-logo-patterns-apgm6olmczc7cxq7.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #333;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://wallpapers.com/images/hd/tiktok-logo-patterns-apgm6olmczc7cxq7.jpg') no-repeat center center;
+      background-size: cover;
+      z-index: -1;
+    }
 
-        h1 {
-            text-align: center;
-            font-size: 36px;
-            color: #ffffff;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-            font-family: 'Sriracha', cursive;
-        }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
 
-        .subtitle {
-            text-align: center;
-            font-size: 18px;
-            color: #ffffff;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-        }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-        .product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: 44px;
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: popIn 0.7s ease-out;
+    }
 
-        .product {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
+    h1 .byline {
+      display: block;
+      font-family: 'Prompt', sans-serif;
+      font-size: 20px;
+      font-weight: normal;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 1px;
+      color: #ffffffcc;
+    }
 
-        .product:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
+    .subtitle {
+      text-align: center;
+      font-size: 20px;
+      color: #ffffff;
+      margin: 20px 0 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+      animation: fadeInUp 0.8s ease-out;
+    }
 
-        .product img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-        .product h2 {
-            font-size: 20px;
-            margin: 16px;
-            color: #333;
-            line-height: 1.8;
-            max-height: none;
-            display: block;
-        }
+    .product {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      animation: fadeInUp 0.6s ease both;
+    }
 
-        .product a {
-            margin: 0 16px 16px;
-            padding: 12px 0;
-            text-align: center;
-            background-color: #ff6b6b;
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-        }
+    .product:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
 
-        .product a:hover {
-            background-color: #e84141;
-        }
-    </style>
+    .product img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .product h2 {
+      font-size: 14px;
+      margin: 12px;
+      color: #333;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    .product a {
+      margin: 0 12px 12px;
+      padding: 12px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      border-radius: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255, 75, 43, 0.4);
+      display: block;
+    }
+
+    .product a:hover {
+      background: linear-gradient(135deg, #ff6a88, #ff5e62);
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(255, 75, 43, 0.5);
+    }
+
+    @media (min-width: 600px) {
+      .product h2 {
+        font-size: 15px;
+      }
+
+      .product a {
+        font-size: 15px;
+      }
+    }
+
+    /* กล่องแจ้งเตือน */
+    #tiktok-warning {
+      display: none;
+      background: #ffebeb;
+      color: #b30000;
+      padding: 16px;
+      margin: 16px auto;
+      max-width: 600px;
+      border-radius: 12px;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+
+  <script>
+    if (navigator.userAgent.toLowerCase().includes("tiktok")) {
+      window.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("tiktok-warning").style.display = "block";
+      });
+    }
+  </script>
 </head>
+
 <body>
 
-    <h1>TikTok SHOP BY Thewarit Poom</h1>
-    <div class="subtitle">รวมสินค้าเกมเมอร์ ที่คุณต้องไม่พลาด</div>
+  <h1>
+    TikTokSHOP
+    <span class="byline">BY Thewarit Poom</span>
+  </h1>
+  <div class="subtitle">รวมสินค้าเกมเมอร์ ที่คุณต้องไม่พลาด</div>
 
-    <div class="product-list">
-        <!-- สินค้าชิ้นที่ 1 -->
-        <div class="product">
-            <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="FANTECH WIRELESS MOUSE WG9">
-            <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ความแม่นยำสูงปรับ DPI ได้ น้ำหนักเบา รุ่น WG9</h2>
-            <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ซื้อสินค้า</a>
-        </div>
+  <!-- กล่องแจ้งเตือนผู้ใช้ TikTok -->
+  <div id="tiktok-warning">
+    ⚠️ กรุณาเปิดหน้านี้ในเบราว์เซอร์ (เช่น Chrome หรือ Safari)<br />
+    เพื่อสามารถสั่งซื้อสินค้าได้อย่างสมบูรณ์<br /><br />
+    👉 ไปที่เมนู ⋮ หรือปุ่มแชร์ แล้วเลือก <u>“เปิดในเบราว์เซอร์”</u>
+  </div>
 
-        <!-- สินค้าชิ้นที่ 2 -->
-        <div class="product">
-            <img src="https://via.placeholder.com/280x200?text=สินค้า+2" alt="สินค้า 2">
-            <h2>ชื่อสินค้า 2</h2>
-            <a href="https://yourlink.com/สินค้า2" target="_blank">ซื้อสินค้า</a>
-        </div>
+  <div class="product-list">
+    <!-- สินค้า 1 -->
+    <div class="product">
+      <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="FANTECH WG9" />
+      <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ปรับ DPI ได้ น้ำหนักเบา รุ่น WG9</h2>
+      <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ซื้อสินค้า</a>
     </div>
+
+    <!-- สินค้า 2 -->
+    <div class="product">
+      <img src="https://p16-oec-va.ibyteimg.com/tos-maliva-i-o3syd03w52-us/a51687efd54a4d8ca4bb7d934fc3c50e~tplv-o3syd03w52-crop-webp:2000:2000.webp" alt="FANTECH Mousepad" />
+      <h2>FANTECH MP78/MP291 แผ่นรองเมาส์เกมมิ่ง แบบสปีด ขนาด 29/78cm</h2>
+      <a href="https://vt.tiktok.com/ZSk1RGQxj/" target="_blank">ซื้อสินค้า</a>
+    </div>
+
+    <!-- สินค้า 3 -->
+    <div class="product">
+      <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25@resize_w900_nl.webp" alt="FANTECH WGP13S" />
+      <h2>FANTECH WGP13S จอยเกมมิ่งสไตล์ X-BOX Wireless 2.4Ghz</h2>
+      <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ซื้อสินค้า</a>
+    </div>
+
+    <!-- สินค้า 4 -->
+    <div class="product">
+      <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98q-lyzc3pdftei170@resize_w900_nl.webp" alt="DAHUA Monitor" />
+      <h2>DAHUA Monitor 22” FHD 100Hz Frameless Ultra Slim</h2>
+      <a href="https://vt.tiktok.com/ZSk1dEJef/" target="_blank">ซื้อสินค้า</a>
+    </div>
+
+    <!-- สินค้า 5 -->
+    <div class="product">
+      <img src="https://down-th.img.susercontent.com/file/cn-11134207-7r98o-ltxjzne4r5gz65.webp" alt="ขาตั้งจอ VESA" />
+      <h2>ขาตั้งจอคอม 17-40 นิ้ว ไม่ต้องเจาะรู รองรับ VESA 2-15kg</h2>
+      <a href="https://vt.tiktok.com/ZSk1dQ2tF/" target="_blank">ซื้อสินค้า</a>
+    </div>
+
+    <!-- สินค้า 6 -->
+    <div class="product">
+      <img src="https://down-th.img.susercontent.com/file/sg-11134201-7rd60-m71pve3dzixmc8.webp" alt="Ajazz AK680 Max" />
+      <h2>Ajazz AK680 Max คีย์บอร์ดสวิตช์แม่เหล็ก 8K Rate, 0.125 ms</h2>
+      <a href="https://vt.tiktok.com/ZSk1dtCpC/" target="_blank">ซื้อสินค้า</a>
+    </div>
+  </div>
 
 </body>
 </html>
