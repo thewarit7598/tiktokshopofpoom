@@ -13,79 +13,88 @@
     body {
       margin: 0;
       font-family: 'Prompt', sans-serif;
-      background: linear-gradient(120deg, #f9f9f9, #e0f7fa);
+      background: linear-gradient(145deg, #f1f1f1, #e0f7fa);
       color: #333;
-      padding: 20px;
+      padding: 16px;
     }
 
     h1 {
       text-align: center;
       color: #2c3e50;
-      font-size: 28px;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 1px rgba(0,0,0,0.05);
+      font-size: 24px;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
 
     ul.product-list {
       list-style-type: none;
       padding: 0;
       margin: 0 auto;
-      max-width: 800px;
+      max-width: 500px;
     }
 
     li.product {
-      background: #fff;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      background: #ffffff;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       overflow: hidden;
       transition: transform 0.2s ease;
     }
 
     li.product:hover {
-      transform: scale(1.01);
+      transform: translateY(-2px);
     }
 
     .product img {
       width: 100%;
-      max-height: 200px;
+      height: 160px;
       object-fit: cover;
       display: block;
     }
 
     .product-content {
-      padding: 15px;
+      padding: 12px 14px 16px;
     }
 
     .product h2 {
-      font-size: 18px;
+      font-size: 16px;
       margin: 0 0 10px;
+      line-height: 1.4;
     }
 
     .product a {
       display: inline-block;
-      margin-top: 10px;
-      padding: 10px 16px;
+      margin-top: 8px;
+      padding: 8px 14px;
       background: #ff5252;
-      color: #fff;
+      color: white;
       text-decoration: none;
       border-radius: 6px;
-      transition: background 0.3s ease;
+      font-size: 14px;
       font-weight: bold;
+      transition: background 0.3s ease;
     }
 
     .product a:hover {
       background: #e53935;
     }
 
-    @media (max-width: 600px) {
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 28px;
+      }
+
       .product h2 {
-        font-size: 16px;
+        font-size: 18px;
       }
 
       .product a {
-        padding: 8px 12px;
-        font-size: 14px;
+        font-size: 15px;
+      }
+
+      .product img {
+        height: 200px;
       }
     }
   </style>
@@ -99,7 +108,7 @@
       <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="สินค้า 1">
       <div class="product-content">
         <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ความแม่นยำสูง ปรับ DPI ได้ รุ่น WG9</h2>
-        <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ดูสินค้า</a>
+        <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ซื้อสินค้า</a>
       </div>
     </li>
 
@@ -108,11 +117,11 @@
       <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25.webp" alt="สินค้า 2">
       <div class="product-content">
         <h2>FANTECH รุ่น WGP13S จอยเกมมิ่ง คอนโทรลเลอร์ รูปทรง XBOX Wireless 2.4GHz</h2>
-        <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ดูสินค้า</a>
+        <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ซื้อสินค้า</a>
       </div>
     </li>
-    
-    <!-- เพิ่มสินค้าใหม่ตรงนี้ได้เลย -->
+
+    <!-- เพิ่มสินค้าใหม่ได้ที่นี่ -->
   </ul>
 </body>
 </html>
