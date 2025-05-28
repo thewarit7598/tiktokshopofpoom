@@ -2,12 +2,12 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
     <title>TikTok SHOP BY Thewarit Poom</title>
     <link rel="icon" href="favicon.ico">
     <meta name="description" content="รวมสินค้าเกมเมอร์ TikTok SHOP BY Thewarit Poom">
 
-    <!-- ใช้ฟอนต์ Noto Sans Thai จาก Google Fonts -->
+    <!-- ฟอนต์ไทยแบบมินิมอล -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
@@ -40,8 +40,8 @@
 
         .product-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -92,9 +92,27 @@
             background-color: #e84141;
         }
 
+        /* ปรับขนาดสำหรับหน้าจอมือถือ */
         @media (max-width: 480px) {
+            .product-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .product img {
+                height: 140px;
+            }
+
             .product h2 {
-                font-size: 16px;
+                font-size: 14px;
+                line-height: 1.4;
+                margin: 8px 12px;
+            }
+
+            .product a {
+                margin: 0 12px 12px;
+                padding: 10px 0;
+                font-size: 14px;
             }
         }
     </style>
