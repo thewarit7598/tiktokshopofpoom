@@ -1,130 +1,100 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TikTok SHOP BY Thewarit Poom</title>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>TikTok SHOP BY Thewarit Poom</title>
+    <link rel="icon" href="favicon.ico">
+    <meta name="description" content="รวมสินค้าเกมเมอร์ TikTok SHOP BY Thewarit Poom">
 
-    body {
-      margin: 0;
-      font-family: 'Prompt', sans-serif;
-      background-image: url('https://wallpapers.com/images/hd/tiktok-logo-patterns-apgm6olmczc7cxq7.jpg');
-      background-size: cover;
-      background-position: center;
-      color: #fff;
-      padding: 20px;
-    }
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to right, #ece9e6, #ffffff);
+            color: #333;
+        }
 
-    h1 {
-      text-align: center;
-      color: #fff;
-      font-size: 24px;
-      margin-bottom: 30px;
-      padding: 15px;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
 
-    h1 img {
-      width: 30px;
-      height: 30px;
-    }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    ul.product-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 0 auto;
-      max-width: 800px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 12px;
-    }
+        .product {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
 
-    li.product {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-      overflow: hidden;
-      transition: transform 0.2s ease;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
 
-    li.product:hover {
-      transform: scale(1.02);
-    }
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-    .product img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      margin-right: 10px;
-      flex-shrink: 0;
-    }
+        .product h2 {
+            font-size: 18px;
+            margin: 16px;
+            color: #333;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 72px;
+        }
 
-    .product-content {
-      padding: 10px;
-      flex: 1;
-    }
+        .product a {
+            margin: 0 16px 16px;
+            padding: 12px 0;
+            text-align: center;
+            background-color: #ff6b6b;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
 
-    .product h2 {
-      font-size: 14px;
-      margin: 0 0 8px;
-      color: #000;
-    }
-
-    .product a {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 6px 10px;
-      background: #ff5252;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .product a:hover {
-      background: #e53935;
-    }
-  </style>
+        .product a:hover {
+            background-color: #e84141;
+        }
+    </style>
 </head>
 <body>
-  <h1>
-    <img src="data:image/png;base64,..." alt="TikTok Logo">
-    TikTok SHOP BY Thewarit Poom
-  </h1>
 
-  <ul class="product-list">
-    <!-- สินค้าชิ้นที่ 1 -->
-    <li class="product">
-      <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="สินค้า 1">
-      <div class="product-content">
-        <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ความแม่นยำสูง ปรับ DPI ได้ รุ่น WG9</h2>
-        <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ซื้อสินค้า</a>
-      </div>
-    </li>
+    <h1>สินค้าพร้อมส่ง</h1>
 
-    <!-- สินค้าชิ้นที่ 2 -->
-    <li class="product">
-      <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25.webp" alt="สินค้า 2">
-      <div class="product-content">
-        <h2>FANTECH รุ่น WGP13S จอยเกมมิ่ง คอนโทรลเลอร์ รูปทรง XBOX Wireless 2.4GHz</h2>
-        <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ซื้อสินค้า</a>
-      </div>
-    </li>
-  </ul>
-</body>
-</html>
+    <div class="product-list">
+        <!-- สินค้าชิ้นที่ 1 -->
+        <div class="product">
+            <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="FANTECH WIRELESS MOUSE WG9">
+            <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ความแม่นยำสูงปรับ DPI ได้ 800-2000 น้ำหนักเบา รุ่น WG9</h2>
+            <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ดูสินค้า</a>
+        </div>
+
+        <!-- สินค้าชิ้นที่ 2 -->
+        <div class="product">
+            <img src="https://via.placeholder.com/280x200?text=สินค้า+2" alt="สินค้า 2">
