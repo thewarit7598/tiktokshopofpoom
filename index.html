@@ -6,12 +6,9 @@
   <title>TikTokSHOP</title>
   <link rel="icon" href="favicon.ico" />
   <meta name="description" content="รวมสินค้าเกมเมอร์ TikTokSHOP BY Thewarit Poom" />
-
-  <!-- ฟอนต์ -->
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Prompt&display=swap" rel="stylesheet" />
 
   <style>
-    /* พื้นหลังแก้บัคขอบขาว */
     body {
       font-family: 'Prompt', sans-serif;
       margin: 0;
@@ -34,27 +31,14 @@
       z-index: -1;
     }
 
-    /* เอฟเฟกต์เคลื่อนไหว */
     @keyframes popIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.95);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
@@ -129,19 +113,23 @@
 
     .product a {
       margin: 0 12px 12px;
-      padding: 10px 0;
+      padding: 12px 0;
       text-align: center;
-      background-color: #ff6b6b;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
       color: #fff;
       text-decoration: none;
       font-weight: bold;
-      font-size: 14px;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
+      font-size: 15px;
+      border-radius: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255, 75, 43, 0.4);
+      display: block;
     }
 
     .product a:hover {
-      background-color: #e84141;
+      background: linear-gradient(135deg, #ff6a88, #ff5e62);
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(255, 75, 43, 0.5);
     }
 
     @media (min-width: 600px) {
@@ -164,43 +152,47 @@
   <div class="subtitle">รวมสินค้าเกมเมอร์ ที่คุณต้องไม่พลาด</div>
 
   <div class="product-list">
-    <!-- ตัวอย่างสินค้า -->
+    <!-- สินค้า 1 -->
     <div class="product">
       <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="FANTECH WG9" />
       <h2>FANTECH WIRELESS MOUSE เมาส์เกมมิ่งไร้สาย Optical ปรับ DPI ได้ น้ำหนักเบา รุ่น WG9</h2>
       <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ซื้อสินค้า</a>
     </div>
 
+    <!-- สินค้า 2 -->
     <div class="product">
-      <img src="https://p16-oec-va.ibyteimg.com/tos-maliva-i-o3syd03w52-us/a51687efd54a4d8ca4bb7d934fc3c50e~tplv-o3syd03w52-crop-webp:2000:2000.webp?dr=15592&from=2378011839&idc=maliva&ps=933b5bde&shcp=e1be8f53&shp=8dbd94bf&t=555f072d" alt="FANTECH Mousepad" />
+      <img src="https://p16-oec-va.ibyteimg.com/tos-maliva-i-o3syd03w52-us/a51687efd54a4d8ca4bb7d934fc3c50e~tplv-o3syd03w52-crop-webp:2000:2000.webp" alt="FANTECH Mousepad" />
       <h2>FANTECH MP78/MP291 แผ่นรองเมาส์เกมมิ่ง แบบสปีด ขนาด 29/78cm</h2>
       <a href="https://vt.tiktok.com/ZSk1RGQxj/" target="_blank">ซื้อสินค้า</a>
     </div>
 
+    <!-- สินค้า 3 -->
     <div class="product">
       <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25@resize_w900_nl.webp" alt="FANTECH WGP13S" />
       <h2>FANTECH WGP13S จอยเกมมิ่งสไตล์ X-BOX Wireless 2.4Ghz</h2>
       <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ซื้อสินค้า</a>
     </div>
 
+    <!-- สินค้า 4 -->
     <div class="product">
       <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98q-lyzc3pdftei170@resize_w900_nl.webp" alt="DAHUA Monitor" />
       <h2>DAHUA Monitor 22” FHD 100Hz Frameless Ultra Slim</h2>
       <a href="https://vt.tiktok.com/ZSk1dEJef/" target="_blank">ซื้อสินค้า</a>
     </div>
 
+    <!-- สินค้า 5 -->
     <div class="product">
       <img src="https://down-th.img.susercontent.com/file/cn-11134207-7r98o-ltxjzne4r5gz65.webp" alt="ขาตั้งจอ VESA" />
       <h2>ขาตั้งจอคอม 17-40 นิ้ว ไม่ต้องเจาะรู รองรับ VESA 2-15kg</h2>
       <a href="https://vt.tiktok.com/ZSk1dQ2tF/" target="_blank">ซื้อสินค้า</a>
     </div>
 
+    <!-- สินค้า 6 -->
     <div class="product">
       <img src="https://down-th.img.susercontent.com/file/sg-11134201-7rd60-m71pve3dzixmc8.webp" alt="Ajazz AK680 Max" />
       <h2>Ajazz AK680 Max คีย์บอร์ดสวิตช์แม่เหล็ก 8K Rate, 0.125 ms</h2>
       <a href="https://vt.tiktok.com/ZSk1dtCpC/" target="_blank">ซื้อสินค้า</a>
     </div>
-
   </div>
 
 </body>
