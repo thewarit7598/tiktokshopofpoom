@@ -18,12 +18,17 @@
       padding: 16px;
     }
 
-    h1 {
+    .shop-title {
       text-align: center;
-      color: #2c3e50;
-      font-size: 24px;
-      margin-bottom: 25px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      padding: 16px;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
     }
 
     ul.product-list {
@@ -48,7 +53,7 @@
 
     .product img {
       width: 100%;
-      height: 160px;
+      height: 120px;
       object-fit: cover;
       display: block;
     }
@@ -58,7 +63,7 @@
     }
 
     .product h2 {
-      font-size: 16px;
+      font-size: 15px;
       margin: 0 0 10px;
       line-height: 1.4;
     }
@@ -81,26 +86,23 @@
     }
 
     @media (min-width: 768px) {
-      h1 {
-        font-size: 28px;
+      .shop-title {
+        font-size: 26px;
       }
 
       .product h2 {
-        font-size: 18px;
-      }
-
-      .product a {
-        font-size: 15px;
+        font-size: 16px;
       }
 
       .product img {
-        height: 200px;
+        height: 160px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>TikTok SHOP BY Thewarit Poom</h1>
+
+  <div class="shop-title">TikTok SHOP BY Thewarit Poom</div>
 
   <ul class="product-list">
     <!-- สินค้าชิ้นที่ 1 -->
@@ -123,5 +125,6 @@
 
     <!-- เพิ่มสินค้าใหม่ได้ที่นี่ -->
   </ul>
+
 </body>
 </html>
