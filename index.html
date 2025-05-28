@@ -55,6 +55,9 @@
       box-shadow: 0 3px 10px rgba(0,0,0,0.2);
       overflow: hidden;
       transition: transform 0.2s ease;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
     }
 
     li.product:hover {
@@ -62,14 +65,16 @@
     }
 
     .product img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
+      width: 100px;
+      height: 100px;
       object-fit: cover;
-      display: block;
+      margin-right: 10px;
+      flex-shrink: 0;
     }
 
     .product-content {
       padding: 10px;
+      flex: 1;
     }
 
     .product h2 {
@@ -98,7 +103,7 @@
 </head>
 <body>
   <h1>
-    <img src="data:image/png;base64,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" alt="TikTok Logo">
+    <img src="data:image/png;base64,..." alt="TikTok Logo">
     TikTok SHOP BY Thewarit Poom
   </h1>
 
@@ -117,4 +122,9 @@
       <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25.webp" alt="สินค้า 2">
       <div class="product-content">
         <h2>FANTECH รุ่น WGP13S จอยเกมมิ่ง คอนโทรลเลอร์ รูปทรง XBOX Wireless 2.4GHz</h2>
-        <a href="https://vt.tiktok.com/ZSho38rbD/" target="
+        <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ซื้อสินค้า</a>
+      </div>
+    </li>
+  </ul>
+</body>
+</html>
