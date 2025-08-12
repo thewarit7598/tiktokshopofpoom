@@ -3,167 +3,375 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chatbot — บ้านแหลมโฮมสเตย์ (Demo)</title>
+  <title>บ้านแหลมโฮมสเตย์ — Chatbot & Gallery (Demo)</title>
+  <meta name="description" content="แชทบอทตัวอย่างสำหรับ บ้านแหลมโฮมสเตย์ พร้อมปุ่มคำถามสำเร็จรูปและภาพสถานที่" />
   <style>
     :root{
-      --bg:#0f1721; --card:#0b1220; --accent:#06b6d4; --text:#e6eef6;
+      --bg:#0b1220;
+      --card:#071022;
+      --muted:rgba(255,255,255,0.65);
+      --accent:#06b6d4;
+      --bubble-user:#0ea5a8;
+      --bubble-bot:rgba(255,255,255,0.04);
+      --radius:12px;
+      font-family: "Noto Sans Thai","Inter",system-ui,Arial,Helvetica,sans-serif;
     }
-    html,body{height:100%; margin:0; font-family:Inter, "Noto Sans Thai", sans-serif; background:linear-gradient(180deg,#06121a 0%, #072434 100%); color:var(--text);}
-    .container{max-width:760px; margin:18px auto; padding:12px;}
-    .header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#053046,#0a6b7a);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;}
-    .card{background:rgba(255,255,255,0.03); border-radius:14px; padding:14px; box-shadow:0 6px 18px rgba(2,6,23,0.6);}
-    .chatWindow{height:60vh; overflow:auto; padding:12px; border-radius:10px; background:linear-gradient(0deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));}
-    .msg{margin:8px 0; display:flex;}
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; background:linear-gradient(180deg,#04202a 0%, #071022 100%); color:#eef6fb;}
+    .wrap{max-width:980px; margin:14px auto; padding:12px;}
+    header{display:flex; gap:12px; align-items:center; margin-bottom:12px;}
+    .logo{width:62px; height:62px; border-radius:12px; background:linear-gradient(135deg,#0ea5a8,#036b70); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; color:white;}
+    .title h1{margin:0; font-size:18px;}
+    .title p{margin:2px 0 0 0; color:var(--muted); font-size:13px;}
+
+    .main { display:grid; grid-template-columns: 1fr 380px; gap:12px; }
+    @media(max-width:980px){ .main{ grid-template-columns: 1fr; } }
+
+    /* Left: chat area */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:12px; box-shadow:0 6px 22px rgba(2,6,23,0.6);}
+    .chatWindow{height:56vh; min-height:300px; overflow:auto; padding:12px; border-radius:10px; background:linear-gradient(0deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015)); border:1px solid rgba(255,255,255,0.02);}
+    .msg{display:flex; margin:8px 0;}
     .msg.user{justify-content:flex-end;}
-    .bubble{max-width:78%; padding:10px 12px; border-radius:12px; line-height:1.4;}
-    .bubble.user{background:linear-gradient(90deg,var(--accent),#0ea5a8); color:#002;}
-    .bubble.bot{background:rgba(255,255,255,0.04); color:var(--text);}
-    .meta{font-size:12px; opacity:0.7; margin-bottom:6px;}
+    .bubble{max-width:78%; padding:10px 12px; border-radius:12px; line-height:1.5; font-size:14px;}
+    .bubble.bot{background:var(--bubble-bot); color:var(--muted);}
+    .bubble.user{background:linear-gradient(90deg,var(--bubble-user),#0596a0); color:#012; font-weight:600;}
+
     .controls{display:flex; gap:8px; margin-top:10px;}
-    .input{flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--text);}
-    button{background:var(--accent); color:#002; border:none; padding:10px 14px; border-radius:10px; font-weight:600; cursor:pointer;}
-    .hint{font-size:13px; opacity:0.85; margin-top:8px;}
-    .kb-item{margin:8px 0; padding:8px 10px; border-radius:8px; background:rgba(255,255,255,0.02);}
-    @media(max-width:520px){
-      .chatWindow{height:55vh;}
-      .logo{width:48px;height:48px;}
-    }
+    .input{flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit; font-size:14px;}
+    .btn{background:var(--accent); color:#012; border:none; padding:10px 14px; border-radius:10px; font-weight:700; cursor:pointer;}
+    .small{padding:8px 10px; font-size:13px;}
+
+    .quick-questions{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+    .qbtn{background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); padding:8px 10px; border-radius:10px; cursor:pointer; font-size:13px;}
+    .qbtn:hover{transform:translateY(-2px); transition:all .15s ease;}
+
+    /* Right column: gallery & KB summary */
+    .side{display:flex; flex-direction:column; gap:12px;}
+    .gallery{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+    @media(max-width:520px){ .gallery{grid-template-columns:repeat(2,1fr);} }
+    .gallery img{width:100%; height:120px; object-fit:cover; border-radius:10px; cursor:pointer; border:1px solid rgba(255,255,255,0.03);}
+
+    .kb{padding:10px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.02);}
+    .kb h3{margin:0 0 6px 0;}
+    .tagrow{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;}
+    .tag{padding:6px 8px; background:rgba(255,255,255,0.02); border-radius:8px; font-size:13px;}
+
+    footer{margin-top:12px; color:var(--muted); font-size:13px;}
+
+    /* modal image viewer */
+    .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); z-index:1200;}
+    .modal.open{display:flex;}
+    .modal img{max-width:94%; max-height:86%; border-radius:12px; box-shadow:0 20px 40px rgba(0,0,0,0.6);}
+    .modal .close{position:absolute; top:18px; right:18px; background:rgba(255,255,255,0.06); padding:8px 10px; border-radius:8px; cursor:pointer; font-weight:700; color:white; border:1px solid rgba(255,255,255,0.06);}
+
+    /* helpers */
+    .muted{color:var(--muted); font-size:13px;}
+    .center{display:flex; align-items:center; gap:8px;}
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
+  <div class="wrap">
+    <header>
       <div class="logo">บล</div>
-      <div>
-        <div style="font-weight:800; font-size:18px">บ้านแหลมโฮมสเตย์ — Chat demo</div>
-        <div style="font-size:13px; opacity:0.8">ถามเรื่องที่พัก กิจกรรม ผลิตภัณฑ์ และการติดต่อได้</div>
+      <div class="title">
+        <h1>บ้านแหลมโฮมสเตย์ — Chat & Gallery</h1>
+        <p>กดคำถามสำเร็จรูปด้านล่างหรือพิมพ์คำถามได้ตรงนี้</p>
+      </div>
+    </header>
+
+    <div class="main">
+      <!-- left: chat -->
+      <div class="card">
+        <div id="chatWindow" class="chatWindow" aria-live="polite" role="log"></div>
+
+        <div class="controls" style="margin-top:10px;">
+          <input id="userInput" class="input" placeholder="พิมพ์คำถาม เช่น 'ติดต่อยังไง' หรือเลือกปุ่มด้านล่าง..." aria-label="พิมพ์ข้อความ" />
+          <button id="sendBtn" class="btn">ส่ง</button>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="muted">คำถามแนะนำ — แตะเพื่อส่ง:</div>
+          <div class="quick-questions" id="quickQuestions" aria-hidden="false"></div>
+        </div>
+      </div>
+
+      <!-- right: gallery & KB -->
+      <div class="side">
+        <div class="card kb">
+          <h3>ข้อมูลสรุป (Knowledge Base)</h3>
+          <div id="kbSummary" class="muted"></div>
+          <div class="tagrow" id="tags">
+            <!-- tags -->
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0;">แกลเลอรี — บ้านแหลมโฮมสเตย์</h3>
+          <div class="gallery" id="gallery">
+            <!-- images injected here -->
+          </div>
+          <div class="muted" style="margin-top:8px;">คลิกภาพเพื่อขยาย</div>
+        </div>
+
+        <div class="card muted">
+          ภาพที่ใช้เป็นตัวอย่างจากหน้าเว็บและแหล่งข้อมูลสาธารณะ หากต้องการเปลี่ยนรูปเป็นของคุณเอง ให้แทนที่ URL ในตัวแปร images[] ของสคริปต์
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="chatWindow" id="chatWindow" aria-live="polite"></div>
+    <footer class="muted">ออกแบบโดย ChatGPT — เปิดไฟล์นี้บนเครื่องเพื่อทดสอบ (offline)</footer>
+  </div>
 
-      <div class="controls" style="margin-top:12px;">
-        <input id="userInput" class="input" placeholder="พิมพ์คำถาม เช่น 'ที่พักมีอะไรบ้าง' หรือ 'ติดต่อยังไง'..." />
-        <button id="sendBtn">ส่ง</button>
-      </div>
-
-      <div class="hint">ตัวอย่างคำถาม: "มีกิจกรรมอะไรบ้าง", "ราคาโคลนขัดผิวเท่าไหร่", "ที่อยู่และเบอร์โทร"</div>
-    </div>
-
-    <div style="margin-top:12px;">
-      <div style="font-size:14px; font-weight:700; margin-bottom:6px">แหล่งข้อมูล (knowledge base)</div>
-      <div class="kb-item" id="kbPreview"></div>
-    </div>
+  <!-- modal viewer -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="close" id="modalClose">ปิด ✕</button>
+    <img id="modalImg" alt="ขยายภาพ" />
   </div>
 
   <script>
-  // ---- ข้อมูลที่ดึงมาจากหน้าเว็บไซต์ baanlaemhomestay.com (สรุปย่อ) ----
-  // ถ้าต้องการอัพเดตข้อมูลจริง ให้แก้ข้อมูลในตัวแปรนี้หรือเชื่อม endpoint backend ที่ดึงสดจากเว็บไซต์
-  const KB = {
-    title: "บ้านแหลมโฮมสเตย์",
-    overview: "ที่พักโฮมสเตย์ สัมผัสวิถีชีวิตชุมชน สัมผัสธรรมชาติ ชมหิ่งห้อย ล่องเรือจิบกาแฟแลหวัน และสปาโคลน",
-    address: "128/16 หมู่ 7 บ้านหน้าทับ ต.ท่าศาลา อ.ท่าศาลา จ.นครศรีธรรมราช",
-    phone: "065-513-7273",
-    activities: [
-      "ล่องเรือชมพระอาทิตย์ขึ้น / ล่องเรือจิบกาแฟแลหวัน",
-      "สปาโคลน / พอกโคลนทะเล",
-      "ชมหิ่งห้อยในตอนกลางคืน",
-      "ร่วมกิจกรรมชุมชน เช่น การทำเครื่องแกง, ทอหางอวน, ปั้นหม้อดิน",
-      "ตกปลา / ปั่นจักรยานในชุมชน / เก็บมัลเบอร์รี่"
-    ],
-    products: [
-      {name:"โคลนขัดผิว", price:"390 บาท", desc:"ขจัดเซลล์ผิวที่ตาย ช่วยให้ผิวกระจ่างใส"},
-      {name:"มาร์คหน้าโคลน", price:"300 บาท", desc:"อุดมไปด้วยแร่ธาตุตามธรรมชาติ มากกว่า 40 ชนิด"}
-    ],
-    notes: "ชุมชนบ้านแหลมเป็นชุมชนเล็กในตำบลท่าศาลา อาชีพหลักคือประมงขนาดเล็ก และมีวิถีชีวิตแบบพอเพียงที่เหมาะแก่การท่องเที่ยวเชิงชุมชน"
-  };
+    // ----------------------
+    // Knowledge base (KB) — แก้ไขได้ตามต้องการ
+    // ----------------------
+    const KB = {
+      title: "บ้านแหลมโฮมสเตย์",
+      overview: "โฮมสเตย์เชิงอนุรักษ์ วิถีชุมชน ประสบการณ์สปาโคลน ชมหิ่งห้อย ล่องเรือ และกิจกรรมชุมชน",
+      address: "128/16 หมู่ 7 บ้านหน้าทับ ต.ท่าศาลา อ.ท่าศาลา จ.นครศรีธรรมราช",
+      phone: "065-513-7273",
+      checkin: "เช็คอิน 14:00 น. / เช็คเอาต์ 12:00 น. (ปรับได้ตามการตกลง)",
+      activities: [
+        "ล่องเรือชมพระอาทิตย์ขึ้น / ล่องเรือจิบกาแฟแลหวัน",
+        "สปาโคลน / พอกโคลนทะเล",
+        "ชมหิ่งห้อยในตอนกลางคืน",
+        "ร่วมกิจกรรมชุมชน เช่น การทำเครื่องแกง, ทอผ้า, ปั้นหม้อดิน",
+        "ปั่นจักรยานชุมชน / เก็บผลไม้ตามฤดูกาล"
+      ],
+      products: [
+        {name:"โคลนขัดผิว", price:"390 บาท", desc:"ล้างสารตกค้าง และขจัดเซลล์ผิวที่ตายแล้ว"},
+        {name:"มาร์คหน้าโคลน", price:"300 บาท", desc:"มาส์กหน้าแร่จากธรรมชาติ"}
+      ],
+      notes: "ชุมชนบ้านแหลมมีวิถีชีวิตประมงท้องถิ่น เหมาะสำหรับการท่องเที่ยวเชิงวัฒนธรรมและธรรมชาติ"
+    };
 
-  // ใช้เพื่อโชว์สรุปฐานข้อมูลด้านล่าง
-  document.getElementById('kbPreview').innerText = KB.overview + " • เบอร์: " + KB.phone + " • ที่อยู่: " + KB.address;
+    // ----------------------
+    // รูปภาพตัวอย่าง (แก้ได้) — ผมแปะหลายรูปจากหน้าเว็บ/แหล่งสาธารณะ
+    // หากรูปไหนไม่โหลด ให้เปลี่ยนเป็น URL ของคุณเอง
+    // ----------------------
+    const images = [
+      // ตัวอย่างจากผลค้นหาที่พบ (กรณีต้องการเปลี่ยนให้ใส่ URL ของคุณเอง)
+      "https://routeen.co/wp-content/uploads/2021/09/banlaem-homestay-2.jpg",
+      "https://explorersclub.baanlaesuan.com/wp-content/uploads/2022/07/banlaem-3.jpg",
+      "https://images.unsplash.com/photo-1502784444185-6f4c11bb0e24?auto=format&fit=crop&w=1200&q=60",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=60",
+      "https://maemai.com/wp-content/uploads/banlaem-1.jpg",
+      "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=60",
+      // fallback / more
+      "https://images.openai.com/thumbnails/url/5RvV-nicu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw7OCKjwNQoINDYOSk4zd3I3CvTzicrOdUsytzD3tzBOT8zSTY4sS7ZIdPMy8shMCkzySfINCkgsyi9xcVQrBgDnqyi5",
+      "https://images.openai.com/thumbnails/url/8UkGzHicu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw4sKPIK9yqLCPNyNgozTQ2yNPcLyrYw8q5IDQgIdAk3CgwtdswKTyoO0Q3ITip1i08PdTSMdE0vKDd1CVQrBgAA6Ckr"
+    ];
 
-  // ---- ฟังก์ชันตอบคำถามแบบง่าย (keyword matching) ----
-  function findAnswer(q){
-    const ql = q.toLowerCase();
+    // ----------------------
+    // คำถามสำเร็จรูป (แนะนำให้เยอะ ๆ ตามที่ขอ)
+    // ----------------------
+    const quickQuestionsList = [
+      "ภาพบรรยากาศที่พัก",
+      "มีกิจกรรมอะไรบ้าง",
+      "ราคาโคลนขัดผิวเท่าไหร่",
+      "ติดต่อ/เบอร์โทร",
+      "ที่อยู่/การเดินทาง",
+      "เวลาเช็คอินเช็คเอาต์",
+      "มีอาหารเช้าหรือไม่",
+      "การจองต้องทำอย่างไร",
+      "มีที่จอดรถไหม",
+      "รับจัดกรุ๊ป/งานเลี้ยงหรือไม่",
+      "นโยบายการยกเลิก",
+      "มีบริการสปา/มาส์กหน้าไหม",
+      "มีกิจกรรมชาวบ้านให้ร่วมไหม",
+      "ช่วงไหนเหมาะไปชมหิ่งห้อย",
+      "มีบริการจักรยานให้ยืมหรือไม่",
+      "สัตว์เลี้ยงเข้าพักได้ไหม",
+      "มีWi-Fiไหม",
+      "ปลอดภัยสำหรับเด็กไหม",
+      "มีห้องน้ำในตัวหรือแชร์",
+      "แนะนำที่เที่ยวใกล้เคียง",
+      "ราคา/โปรโมชั่นล่าสุด",
+      "รีวิวจากผู้เข้าพัก",
+      "บูธสินค้า/ของฝากมีอะไรขาย",
+      "มีตำแหน่งแผนที่ (Google Maps) ไหม",
+      "ขอรูปห้องพักภายใน"
+    ];
 
-    // 1) ตอบคำถามทั่วไป / เกี่ยวกับภาพรวม
-    if(/(ที่พัก|โฮมสเตย์|ที่พักมีอะไร|ที่พักแบบ)/.test(ql)){
-      return KB.overview + "\n\nกิจกรรมเด่น: " + KB.activities.join(" • ");
+    // ----------------------
+    // Render initial KB & UI
+    // ----------------------
+    const kbSummaryEl = document.getElementById('kbSummary');
+    kbSummaryEl.innerText = KB.overview + " • เบอร์: " + KB.phone + " • ที่อยู่: " + KB.address;
+
+    const tagsEl = document.getElementById('tags');
+    ["กิจกรรม","สปาโคลน","ชมหิ่งห้อย","ล่องเรือ","โฮมสเตย์","ชุมชน"].forEach(t => {
+      const e = document.createElement('div'); e.className='tag'; e.innerText=t; tagsEl.appendChild(e);
+    });
+
+    const galleryEl = document.getElementById('gallery');
+    images.forEach((src, idx) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `บ้านแหลมภาพ ${idx+1}`;
+      img.loading = 'lazy';
+      img.addEventListener('click', ()=> openModal(src));
+      galleryEl.appendChild(img);
+    });
+
+    const quickEl = document.getElementById('quickQuestions');
+    quickQuestionsList.forEach(q => {
+      const b = document.createElement('button');
+      b.className = 'qbtn';
+      b.innerText = q;
+      b.addEventListener('click', ()=> sendQuickQuestion(q));
+      quickEl.appendChild(b);
+    });
+
+    // ----------------------
+    // Chat logic (simple keyword-matching + some canned responses)
+    // ----------------------
+    const chatWindow = document.getElementById('chatWindow');
+    const input = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function addMsg(text, who='bot') {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
+      bubble.innerText = text;
+      wrapper.appendChild(bubble);
+      chatWindow.appendChild(wrapper);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
     }
-    // 2) กิจกรรม
-    if(/(กิจกรรม|สปา|โคลน|หิ่งห้อย|ล่องเรือ|ชมหิ่งห้อย|พอกโคลน)/.test(ql)){
-      return "กิจกรรมที่มี: \n- " + KB.activities.join("\n- ");
-    }
-    // 3) สินค้า/ราคา
-    if(/(ราคา|โคลน|มาร์ค|สินค้า|ผลิตภัณฑ์)/.test(ql)){
-      return "สินค้าตัวอย่าง:\n" + KB.products.map(p => `${p.name} — ${p.price} — ${p.desc}`).join("\n");
-    }
-    // 4) ติดต่อ / ที่อยู่
-    if(/(ติดต่อ|เบอร์|โทร|ที่อยู่|อยู่ที่ไหน)/.test(ql)){
-      return `ติดต่อ:\nโทร ${KB.phone}\nที่อยู่: ${KB.address}`;
-    }
-    // 5) กิจกรรมตามเดือน / ปฏิทิน
-    if(/(เดือน|ปฏิทิน|ฤดู|เวลา)/.test(ql)){
-      return "กิจกรรมตามช่วงปี: มกราคม-พฤศจิกายน: ล่องเรือชมพระอาทิตย์ขึ้น และพอกโคลนทะเล. เดือนธันวาคม: ฤดูมรสุม มีกิจกรรมพายเรือในป่าชายเลนและชมวิถีชาวประมง.";
+
+    function sendQuickQuestion(q) {
+      addMsg(q,'user');
+      // short delay to simulate thinking
+      setTimeout(()=> {
+        const ans = findAnswer(q);
+        addMsg(ans,'bot');
+      }, 250);
     }
 
-    // 6) ถามอื่น ๆ: คืนคำตอบอิงจาก KB ด้วยการค้นหาคำสำคัญ
-    // ค้นหาในข้อความ KB ทั้งหมดแบบง่าย
-    const bigText = (KB.overview + " " + KB.activities.join(" ") + " " + KB.products.map(p=>p.name+" "+p.desc).join(" ") + " " + KB.notes).toLowerCase();
-    const words = ql.split(/\W+/).filter(Boolean);
-    let matches = [];
-    for(const w of words){
-      if(w.length < 3) continue;
-      if(bigText.includes(w)) matches.push(w);
+    sendBtn.addEventListener('click', ()=> {
+      const txt = input.value.trim();
+      if(!txt) return;
+      addMsg(txt,'user');
+      input.value = '';
+      setTimeout(()=> {
+        const ans = findAnswer(txt);
+        addMsg(ans,'bot');
+      }, 300);
+    });
+
+    input.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendBtn.click(); }
+    });
+
+    // welcome
+    addMsg("สวัสดีครับ! ผมเป็นบอทข้อมูลบ้านแหลมโฮมสเตย์ — เลือกคำถามด้านล่างหรือพิมพ์คำถามได้เลยครับ");
+
+    // keyword matching function
+    function findAnswer(q) {
+      const ql = q.toLowerCase();
+
+      // mapping inputs to answers
+      if(/(ภาพ|รูป|gallery|บรรยากาศ|รูปภาพ|รูปที่พัก)/.test(ql)) {
+        return "ในแกลเลอรีมีภาพบรรยากาศของที่พัก เรือล่องชมธรรมชาติ และกิจกรรมสปาโคลน — คลิกภาพเพื่อขยายดูเพิ่มเติมครับ";
+      }
+      if(/(กิจกรรม|ทำอะไร|มีกิจกรรม)/.test(ql)) {
+        return "กิจกรรมเด่น: \n- " + KB.activities.join("\n- ");
+      }
+      if(/(โคลน|สปา|มาร์ค|ราคาโคลน|ราคา)/.test(ql)) {
+        return "สินค้าตัวอย่าง:\n" + KB.products.map(p => `${p.name} — ${p.price} — ${p.desc}`).join("\n");
+      }
+      if(/(ติดต่อ|โทร|เบอร์|phone|contact)/.test(ql)) {
+        return `ติดต่อ: โทร ${KB.phone}\nที่อยู่: ${KB.address}`;
+      }
+      if(/(ที่อยู่|เดินทาง|map|google)/.test(ql)) {
+        return `ที่อยู่: ${KB.address}\nแนะนำ: ใช้ Google Maps ค้นคำว่า "บ้านแหลมโฮมสเตย์" เพื่อดูเส้นทางหรือแชร์ตำแหน่ง`;
+      }
+      if(/(เช็คอิน|checkin|เช็คเอาต์|checkout|เวลาเช็ค)/.test(ql)) {
+        return KB.checkin;
+      }
+      if(/(จอง|วิธีจอง|การจอง|book)/.test(ql)) {
+        return "การจอง: แนะนำติดต่อทางเบอร์โทรหรือช่องทาง social ของที่พัก เพื่อเช็ควันว่างและวิธีการชำระเงิน";
+      }
+      if(/(จอด|ที่จอด|parking)/.test(ql)) {
+        return "มีที่จอดรถสำหรับผู้เข้าพัก (จำนวนจำกัด) แนะนำสำรองล่วงหน้าหากมากับรถจำนวนมาก";
+      }
+      if(/(กรุ๊ป|รับจัด|งานเลี้ยง|จัดงาน)/.test(ql)) {
+        return "รับจัดกรุ๊ปเล็ก ๆ และกิจกรรมชุมชน ติดต่อแจ้งจำนวนและวันที่ล่วงหน้าเพื่อเตรียมอาหารและกิจกรรม";
+      }
+      if(/(ยกเลิก|นโยบายการยกเลิก|cancel)/.test(ql)) {
+        return "นโยบายการยกเลิก: แจ้งยกเลิกล่วงหน้าอย่างน้อย 7 วันเพื่อคืนเงิน (ขึ้นกับข้อตกลง ติดต่อที่พักเพื่อรายละเอียด)";
+      }
+      if(/(สัตว์|สัตว์เลี้ยง|pet)/.test(ql)) {
+        return "กรุณาสอบถามที่พักโดยตรงสำหรับนโยบายสัตว์เลี้ยง บางที่อนุญาตเฉพาะบางชนิด/ขนาดและอาจมีค่าใช้จ่ายเพิ่มเติม";
+      }
+      if(/(wifi|wi-fi|internet)/.test(ql)) {
+        return "มีบริการ Wi-Fi สำหรับผู้เข้าพัก (ความเร็วอาจขึ้นกับตำแหน่งและจำนวนผู้ใช้งาน)";
+      }
+      if(/(เด็ก|child|เด็กเล็ก)/.test(ql)) {
+        return "สถานที่เหมาะสำหรับครอบครัว แต่ควรระมัดระวังบริเวณน้ำและคลอง ดูแลเด็กเล็กอย่างใกล้ชิด";
+      }
+      if(/(ใกล้|เที่ยวใกล้|ที่เที่ยวใกล้)/.test(ql)) {
+        return "สถานที่แนะนำใกล้เคียง: ชุมชนท้องถิ่น, แหล่งชิมอาหารทะเล, ป่าชายเลน และตลาดท้องถิ่น — สามารถเช่าจักรยานหรือพายเรือเที่ยวได้";
+      }
+      if(/(รูปห้อง|ห้องพัก|ภายใน)/.test(ql)) {
+        return "มีห้องพักให้เลือกหลายแบบ — ดูภาพห้องพักภายในที่แกลเลอรีด้านขวา หากต้องการรูปเพิ่มเติมแจ้งชื่อห้องที่สนใจได้ครับ";
+      }
+      if(/(ราคา|ราคาห้อง|rates|โปรโมชั่น)/.test(ql)) {
+        return "ราคาอาจเปลี่ยนตามฤดูกาลและจำนวนคน กรุณาติดต่อเพื่อสอบถามราคา/โปรโมชั่นล่าสุด";
+      }
+      if(/(รีวิว|ความเห็น|feedback)/.test(ql)) {
+        return "รีวิว: โดยทั่วไปผู้เข้าพักชื่นชอบบรรยากาศชุมชนและกิจกรรมโคลน/ชมหิ่งห้อย — แนะนำดูรีวิวเพิ่มเติมจากหน้าเพจหรือแหล่งจองต่าง ๆ";
+      }
+
+      // fallback: keyword lookup in KB text
+      const bigText = (KB.overview + " " + KB.activities.join(" ") + " " + KB.products.map(p=>p.name+" "+p.desc).join(" ") + " " + KB.notes + " " + KB.address + " " + KB.phone).toLowerCase();
+      const words = ql.split(/\W+/).filter(Boolean);
+      const matches = [];
+      for(const w of words){
+        if(w.length < 3) continue;
+        if(bigText.includes(w)) matches.push(w);
+      }
+      if(matches.length){
+        return "ผมพบข้อมูลที่เกี่ยวกับ: " + [...new Set(matches)].join(", ") + "\nลองถามเป็นคำถามเจาะจง เช่น 'ราคาโคลนขัดผิวเท่าไหร่' หรือ 'ช่วงไหนชมหิ่งห้อยได้'";
+      }
+
+      // if still not found
+      return "ขอโทษครับ ผมยังไม่มีข้อมูลเฉพาะสำหรับคำถามนี้ในฐานข้อมูล ถ้าต้องการผมสามารถแนะนำให้ติดต่อที่พักโดยตรงหรือเพิ่มคำถามที่ต้องการให้ผมช่วยค้นเพิ่มเติมได้ครับ";
     }
-    if(matches.length){
-      // ถ้ามีคำที่ตรงกับ KB ให้คืนข้อความเกี่ยวกับคำเหล่านั้น
-      return "ผมพบข้อมูลที่เกี่ยวข้องกับคำว่า: " + [...new Set(matches)].join(", ") + "\n\nลองถามเป็นคำถามเฉพาะเจาะจงมากขึ้น เช่น 'ราคาโคลนขัดผิวเท่าไหร่' หรือ 'มีกิจกรรมชมหิ่งห้อยไหม'";
+
+    // ----------------------
+    // Modal viewer functions
+    // ----------------------
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalClose = document.getElementById('modalClose');
+    function openModal(src){
+      modalImg.src = src;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
     }
-
-    // 7) ถ้าไม่พบคำตอบ
-    return "ขอโทษครับ ผมยังไม่ทราบคำตอบสำหรับคำถามนี้จากฐานข้อมูลที่มีในตอนนี้ — ลองถามเป็นคำถามเฉพาะเจาะจงมากขึ้น หรือตรวจสอบหน้าเว็บหลักของ บ้านแหลมโฮมสเตย์ เพื่อข้อมูลเพิ่มเติม";
-  }
-
-  // ---- UI logic ----
-  const chatWindow = document.getElementById('chatWindow');
-  const input = document.getElementById('userInput');
-  const sendBtn = document.getElementById('sendBtn');
-
-  function addMessage(text, who='bot'){
-    const wrapper = document.createElement('div');
-    wrapper.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
-    bubble.innerText = text;
-    wrapper.appendChild(bubble);
-    chatWindow.appendChild(wrapper);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
-  }
-
-  sendBtn.addEventListener('click', ()=> {
-    const t = input.value.trim();
-    if(!t) return;
-    addMessage(t, 'user');
-    input.value = '';
-    // จำลองดีเลย์การคิดของบอทเล็กน้อย
-    setTimeout(()=> {
-      const ans = findAnswer(t);
-      addMessage(ans, 'bot');
-    }, 300);
-  });
-
-  // allow enter to send
-  input.addEventListener('keydown', (e)=> {
-    if(e.key === 'Enter' && !e.shiftKey){
-      e.preventDefault();
-      sendBtn.click();
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      modalImg.src = '';
     }
-  });
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e)=> {
+      if(e.key === 'Escape') closeModal();
+    });
 
-  // welcome message
-  addMessage("สวัสดี! ผมเป็นบอทข้อมูลบ้านแหลมโฮมสเตย์ ทดลองถามผมเกี่ยวกับที่พัก กิจกรรม สินค้า หรือการติดต่อได้เลยครับ");
   </script>
 </body>
 </html>
