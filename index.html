@@ -1,377 +1,321 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>บ้านแหลมโฮมสเตย์ — Chatbot & Gallery (Demo)</title>
-  <meta name="description" content="แชทบอทตัวอย่างสำหรับ บ้านแหลมโฮมสเตย์ พร้อมปุ่มคำถามสำเร็จรูปและภาพสถานที่" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>TikTokSHOP</title>
+  <link rel="icon" href="favicon.ico" />
+  <meta name="description" content="รวมสินค้าเกมเมอร์ TikTokSHOP BY Thewarit Poom" />
+
+  <!-- ✅ SEO & Open Graph Tags -->
+  <meta property="og:title" content="TikTokSHOP BY Thewarit Poom" />
+  <meta property="og:description" content="รวมสินค้าเกมมิ่ง ขายดี พร้อมลิงก์สั่งซื้อจาก TikTok Shop" />
+  <meta property="og:image" content="https://wallpapers.com/images/hd/tiktok-logo-patterns-apgm6olmczc7cxq7.jpg" />
+  <meta property="og:url" content="https://your-website-link.com" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Prompt&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --bg:#0b1220;
-      --card:#071022;
-      --muted:rgba(255,255,255,0.65);
-      --accent:#06b6d4;
-      --bubble-user:#0ea5a8;
-      --bubble-bot:rgba(255,255,255,0.04);
-      --radius:12px;
-      font-family: "Noto Sans Thai","Inter",system-ui,Arial,Helvetica,sans-serif;
+    body {
+      font-family: 'Prompt', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      background-color: #111;
+      overflow-x: hidden;
+      position: relative;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%; margin:0; background:linear-gradient(180deg,#04202a 0%, #071022 100%); color:#eef6fb;}
-    .wrap{max-width:980px; margin:14px auto; padding:12px;}
-    header{display:flex; gap:12px; align-items:center; margin-bottom:12px;}
-    .logo{width:62px; height:62px; border-radius:12px; background:linear-gradient(135deg,#0ea5a8,#036b70); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; color:white;}
-    .title h1{margin:0; font-size:18px;}
-    .title p{margin:2px 0 0 0; color:var(--muted); font-size:13px;}
 
-    .main { display:grid; grid-template-columns: 1fr 380px; gap:12px; }
-    @media(max-width:980px){ .main{ grid-template-columns: 1fr; } }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://wallpapers.com/images/hd/tiktok-logo-patterns-apgm6olmczc7cxq7.jpg') no-repeat center center;
+      background-size: cover;
+      z-index: -1;
+      filter: brightness(0.3);
+    }
 
-    /* Left: chat area */
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:12px; box-shadow:0 6px 22px rgba(2,6,23,0.6);}
-    .chatWindow{height:56vh; min-height:300px; overflow:auto; padding:12px; border-radius:10px; background:linear-gradient(0deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015)); border:1px solid rgba(255,255,255,0.02);}
-    .msg{display:flex; margin:8px 0;}
-    .msg.user{justify-content:flex-end;}
-    .bubble{max-width:78%; padding:10px 12px; border-radius:12px; line-height:1.5; font-size:14px;}
-    .bubble.bot{background:var(--bubble-bot); color:var(--muted);}
-    .bubble.user{background:linear-gradient(90deg,var(--bubble-user),#0596a0); color:#012; font-weight:600;}
+    .ticker {
+      background: #ff2d55;
+      color: white;
+      font-weight: bold;
+      padding: 10px 0;
+      text-align: center;
+      font-size: 14px;
+      overflow: hidden;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-    .controls{display:flex; gap:8px; margin-top:10px;}
-    .input{flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit; font-size:14px;}
-    .btn{background:var(--accent); color:#012; border:none; padding:10px 14px; border-radius:10px; font-weight:700; cursor:pointer;}
-    .small{padding:8px 10px; font-size:13px;}
+    .ticker span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker 12s linear infinite;
+      white-space: nowrap;
+    }
 
-    .quick-questions{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
-    .qbtn{background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); padding:8px 10px; border-radius:10px; cursor:pointer; font-size:13px;}
-    .qbtn:hover{transform:translateY(-2px); transition:all .15s ease;}
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
 
-    /* Right column: gallery & KB summary */
-    .side{display:flex; flex-direction:column; gap:12px;}
-    .gallery{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
-    @media(max-width:520px){ .gallery{grid-template-columns:repeat(2,1fr);} }
-    .gallery img{width:100%; height:120px; object-fit:cover; border-radius:10px; cursor:pointer; border:1px solid rgba(255,255,255,0.03);}
+    h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: 44px;
+      text-align: center;
+      color: #fff;
+      margin: 30px 0 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      text-transform: uppercase;
+      animation: popIn 0.7s ease-out;
+    }
 
-    .kb{padding:10px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.02);}
-    .kb h3{margin:0 0 6px 0;}
-    .tagrow{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;}
-    .tag{padding:6px 8px; background:rgba(255,255,255,0.02); border-radius:8px; font-size:13px;}
+    h1 .byline {
+      display: block;
+      font-family: 'Prompt', sans-serif;
+      font-size: 20px;
+      font-weight: normal;
+      color: #ffffffcc;
+    }
 
-    footer{margin-top:12px; color:var(--muted); font-size:13px;}
+    .subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #ddd;
+      margin: 10px 0 30px;
+    }
 
-    /* modal image viewer */
-    .modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); z-index:1200;}
-    .modal.open{display:flex;}
-    .modal img{max-width:94%; max-height:86%; border-radius:12px; box-shadow:0 20px 40px rgba(0,0,0,0.6);}
-    .modal .close{position:absolute; top:18px; right:18px; background:rgba(255,255,255,0.06); padding:8px 10px; border-radius:8px; cursor:pointer; font-weight:700; color:white; border:1px solid rgba(255,255,255,0.06);}
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+      padding: 0 16px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
 
-    /* helpers */
-    .muted{color:var(--muted); font-size:13px;}
-    .center{display:flex; align-items:center; gap:8px;}
+    .product {
+      background: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(255, 45, 85, 0.3);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-4px);
+    }
+
+    .product img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+
+    .product h2 {
+      font-size: 14px;
+      margin: 12px;
+      color: #eee;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .product a {
+      margin: 0 12px 12px;
+      padding: 10px 0;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .product a:hover {
+      background: linear-gradient(135deg, #ff6a88, #ff5e62);
+      transform: scale(1.03);
+    }
+
+    .badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #ff3b3b;
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .more-btn {
+      display: block;
+      width: fit-content;
+      margin: 40px auto;
+      background: #ff2d55;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(255, 45, 85, 0.3);
+      transition: background 0.3s ease;
+    }
+
+    .more-btn:hover {
+      background: #ff4a73;
+    }
+
+    /* ✅ Scroll to top button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff2d55;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 0 10px rgba(255, 45, 85, 0.4);
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">บล</div>
-      <div class="title">
-        <h1>บ้านแหลมโฮมสเตย์ — Chat & Gallery</h1>
-        <p>กดคำถามสำเร็จรูปด้านล่างหรือพิมพ์คำถามได้ตรงนี้</p>
-      </div>
-    </header>
 
-    <div class="main">
-      <!-- left: chat -->
-      <div class="card">
-        <div id="chatWindow" class="chatWindow" aria-live="polite" role="log"></div>
+  <div class="ticker"><span>กรุณาเปิดหน้านี้ใน <strong>เบราว์เซอร์อื่นๆ</strong> เพื่อสามารถกดซื้อสินค้าได้ (หากเปิดผ่าน TikTok จะไม่สามารถกดสั่งซื้อได้)</span></div>
 
-        <div class="controls" style="margin-top:10px;">
-          <input id="userInput" class="input" placeholder="พิมพ์คำถาม เช่น 'ติดต่อยังไง' หรือเลือกปุ่มด้านล่าง..." aria-label="พิมพ์ข้อความ" />
-          <button id="sendBtn" class="btn">ส่ง</button>
-        </div>
+  <h1>
+    TikTokSHOP
+    <span class="byline">BY Thewarit Poom</span>
+  </h1>
+  <div class="subtitle">รวมสินค้าเกมเมอร์ ขายดีประจำร้าน</div>
 
-        <div style="margin-top:12px;">
-          <div class="muted">คำถามแนะนำ — แตะเพื่อส่ง:</div>
-          <div class="quick-questions" id="quickQuestions" aria-hidden="false"></div>
-        </div>
-      </div>
+  <div class="product-list">
+    <!-- สินค้า 1 -->
+    <div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="FANTECH WG9" />
+  <h2>FANTECH เมาส์เกมมิ่งไร้สาย Optical DPI ปรับได้ รุ่น WG9</h2>
+  <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ซื้อสินค้า</a>
+</div>
 
-      <!-- right: gallery & KB -->
-      <div class="side">
-        <div class="card kb">
-          <h3>ข้อมูลสรุป (Knowledge Base)</h3>
-          <div id="kbSummary" class="muted"></div>
-          <div class="tagrow" id="tags">
-            <!-- tags -->
-          </div>
-        </div>
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/th-11134207-7rasj-m63u7dqzyuuuf5" alt="FANTECH Mousepad" />
+  <h2>คีย์บอร์ด HE - AULA WIN60HE / WIN68HE - Rapid Trigger Wired Keyboard Magnetic Switch คีย์ไทย</h2>
+  <a href="https://vt.tiktok.com/ZSk1hGyxv/" target="_blank">ซื้อสินค้า</a>
+</div>
 
-        <div class="card">
-          <h3 style="margin-top:0;">แกลเลอรี — บ้านแหลมโฮมสเตย์</h3>
-          <div class="gallery" id="gallery">
-            <!-- images injected here -->
-          </div>
-          <div class="muted" style="margin-top:8px;">คลิกภาพเพื่อขยาย</div>
-        </div>
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25@resize_w900_nl.webp" alt="FANTECH WGP13S" />
+  <h2>FANTECH WGP13S จอยเกมมิ่งสไตล์ X-BOX Wireless 2.4Ghz</h2>
+  <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ซื้อสินค้า</a>
+</div>
 
-        <div class="card muted">
-          ภาพที่ใช้เป็นตัวอย่างจากหน้าเว็บและแหล่งข้อมูลสาธารณะ หากต้องการเปลี่ยนรูปเป็นของคุณเอง ให้แทนที่ URL ในตัวแปร images[] ของสคริปต์
-        </div>
-      </div>
-    </div>
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98q-lyzc3pdftei170@resize_w900_nl.webp" alt="DAHUA Monitor" />
+  <h2>DAHUA Monitor 22” FHD 100Hz Frameless Ultra Slim</h2>
+  <a href="https://vt.tiktok.com/ZSk1dEJef/" target="_blank">ซื้อสินค้า</a>
+</div>
 
-    <footer class="muted">ออกแบบโดย ChatGPT — เปิดไฟล์นี้บนเครื่องเพื่อทดสอบ (offline)</footer>
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/th-11134207-7rasf-m59qzcnutczbb5" alt="ขาตั้งจอ VESA" />
+  <h2>เมาส์เกมมิ่งพร้อมแท่นชาร์จ Ajazz AJ159P MC Tri-Mod(Wired+2.4G+BT) Wireless Magnetic Charging Mouse รับประกันสินค้า 1 ปี</h2>
+  <a href="https://vt.tiktok.com/ZSk1hH2H6/" target="_blank">ซื้อสินค้า</a>
+</div>
+
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/sg-11134201-7rd60-m71pve3dzixmc8.webp" alt="Ajazz AK680 Max" />
+  <h2>Ajazz AK680 Max คีย์บอร์ดสวิตช์แม่เหล็ก 8K Rate, 0.125 ms</h2>
+  <a href="https://vt.tiktok.com/ZSk1dtCpC/" target="_blank">ซื้อสินค้า</a>
+</div>
+
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/th-11134207-7r992-lzlq3o90jngha0" alt="สายคีย์บอร์ด 8K คุณภาพสูง" />
+  <h2>สายคีย์บอร์ด 8K คุณภาพสูง สายเชื่อมต่อคีย์บอร์ด Coiled Cable Keyboard สำหรับคีย์บอร์ด USB to C สายถัก สายม้วน สายเกลียว</h2>
+  <a href="https://vt.tiktok.com/ZSk1hVf3R/" target="_blank">ซื้อสินค้า</a>
+</div>
+
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/th-11134207-7rasj-m3dnlx9xfqi014" alt="Nubwo คีย์บอร์ด Mechanical" />
+  <h2>Nubwo คีย์บอร์ด Mechanical เชื่อมได้ 3 โหมด BT / 2.4G / TYPE- C มีให้เลือก 2 Switch Blue / Red รุ่น NK51 รับประกัน 1ปี</h2>
+  <a href="https://vt.tiktok.com/ZSk1hpmAQ/" target="_blank">ซื้อสินค้า</a>
+</div>
+
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/cn-11134207-7r98o-lpharbu4uo2k12" alt="VXE Dragonfly R1 SE+" />
+  <h2>VXE Dragonfly R1 SE+ เมาส์บลูทูธไร้สาย น้ำหนักเบา (รับประกัน 1ปี)</h2>
+  <a href="https://vt.tiktok.com/ZSk1kNgST/" target="_blank">ซื้อสินค้า</a>
+</div>
+
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/th-11134207-7rasm-m3d345k4d71k77" alt="VXE Dragonfly R1 SE+" />
+  <h2>คีย์บอร์ดเกมมิ่ง Ajazz AK680 Max HE HiFi RGB Wired Magnetic Hifi Switch Mechanical Keyboard รับประกันสินค้า 1 ปี</h2>
+  <a href="https://vt.tiktok.com/ZSkJkjXMN/">ซื้อสินค้า</a>
+</div>
+
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/sg-11134201-22120-3ak3ve1k8alv52" />
+  <h2>life ขาตั้งจอคอม รุ่น ES-CS95 แบบ 1จอ รองรับ 17นิ้ว – 32นิ้ว รับน้ำหนักสูงสุด 9kg หมุนได้ 360องศา ก้มเงยได้ ตกแต่งคอม</h2>
+  <a href="https://vt.tiktok.com/ZSkJhE6Lc/">ซื้อสินค้า</a>
+</div>
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-th.img.susercontent.com/file/sg-11134201-7rdxp-m0jzxkumhhj8cf" />
+  <h2>MAD 60 HE คีย์บอร์ดสวิตช์แม่เหล็กสําหรับเล่นเกม การเชื่อมต่อแบบมีสาย Hot Swap แบบเต็มคีย์</h2>
+  <a href="https://vt.tiktok.com/ZSkJhE6Lc/">ซื้อสินค้า</a>
+</div>
+
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://p16-oec-va.ibyteimg.com/tos-maliva-i-o3syd03w52-us/7a886f79eb4340d2b3cc298ef9eff7d5~tplv-o3syd03w52-resize-webp:800:800.webp?dr=15584&t=555f072d&ps=933b5bde&shp=6ce186a1&shcp=e1be8f53&idc=my&from=1826719393" />
+  <h2>แท่นวางโน๊ตบุ๊ค ขาตั้งโน๊ตบุ๊คพกพา ขาตั้งแท็บเล็ต พกพาง่าย ปรับระดับได้ 6 ระดับ</h2>
+  <a href="https://vt.tiktok.com/ZSkJytF45/">ซื้อสินค้า</a>
+</div>
+
+<div class="product">
+  <span class="badge">ขายดี</span>
+  <img src="https://down-ph.img.susercontent.com/file/sg-11134201-7rdyu-m0l9sxcuptww2e" />
+  <h2>Keyboard Strap Keyboard Ribbon เพื่อเพิ่มสไตล์และความสะดวกสบาย</h2>
+  <a href="https://vt.tiktok.com/ZSkJyauAP/">ซื้อสินค้า</a>
+</div>
+
+
+    
   </div>
 
-  <!-- modal viewer -->
-  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <button class="close" id="modalClose">ปิด ✕</button>
-    <img id="modalImg" alt="ขยายภาพ" />
-  </div>
+  <!-- ✅ ปุ่มดูสินค้าเพิ่มเติม -->
+  <a class="more-btn" href="https://www.tiktok.com/@thewarit_poom?_t=ZS-8wkYb31As6b&_r=1" target="_blank">ดูสินค้าเพิ่มเติมใน TikTok Shop</a>
 
-  <script>
-    // ----------------------
-    // Knowledge base (KB) — แก้ไขได้ตามต้องการ
-    // ----------------------
-    const KB = {
-      title: "บ้านแหลมโฮมสเตย์",
-      overview: "โฮมสเตย์เชิงอนุรักษ์ วิถีชุมชน ประสบการณ์สปาโคลน ชมหิ่งห้อย ล่องเรือ และกิจกรรมชุมชน",
-      address: "128/16 หมู่ 7 บ้านหน้าทับ ต.ท่าศาลา อ.ท่าศาลา จ.นครศรีธรรมราช",
-      phone: "065-513-7273",
-      checkin: "เช็คอิน 14:00 น. / เช็คเอาต์ 12:00 น. (ปรับได้ตามการตกลง)",
-      activities: [
-        "ล่องเรือชมพระอาทิตย์ขึ้น / ล่องเรือจิบกาแฟแลหวัน",
-        "สปาโคลน / พอกโคลนทะเล",
-        "ชมหิ่งห้อยในตอนกลางคืน",
-        "ร่วมกิจกรรมชุมชน เช่น การทำเครื่องแกง, ทอผ้า, ปั้นหม้อดิน",
-        "ปั่นจักรยานชุมชน / เก็บผลไม้ตามฤดูกาล"
-      ],
-      products: [
-        {name:"โคลนขัดผิว", price:"390 บาท", desc:"ล้างสารตกค้าง และขจัดเซลล์ผิวที่ตายแล้ว"},
-        {name:"มาร์คหน้าโคลน", price:"300 บาท", desc:"มาส์กหน้าแร่จากธรรมชาติ"}
-      ],
-      notes: "ชุมชนบ้านแหลมมีวิถีชีวิตประมงท้องถิ่น เหมาะสำหรับการท่องเที่ยวเชิงวัฒนธรรมและธรรมชาติ"
-    };
+ 
 
-    // ----------------------
-    // รูปภาพตัวอย่าง (แก้ได้) — ผมแปะหลายรูปจากหน้าเว็บ/แหล่งสาธารณะ
-    // หากรูปไหนไม่โหลด ให้เปลี่ยนเป็น URL ของคุณเอง
-    // ----------------------
-    const images = [
-      // ตัวอย่างจากผลค้นหาที่พบ (กรณีต้องการเปลี่ยนให้ใส่ URL ของคุณเอง)
-      "https://routeen.co/wp-content/uploads/2021/09/banlaem-homestay-2.jpg",
-      "https://explorersclub.baanlaesuan.com/wp-content/uploads/2022/07/banlaem-3.jpg",
-      "https://images.unsplash.com/photo-1502784444185-6f4c11bb0e24?auto=format&fit=crop&w=1200&q=60",
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=60",
-      "https://maemai.com/wp-content/uploads/banlaem-1.jpg",
-      "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=60",
-      // fallback / more
-      "https://images.openai.com/thumbnails/url/5RvV-nicu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw7OCKjwNQoINDYOSk4zd3I3CvTzicrOdUsytzD3tzBOT8zSTY4sS7ZIdPMy8shMCkzySfINCkgsyi9xcVQrBgDnqyi5",
-      "https://images.openai.com/thumbnails/url/8UkGzHicu1mSUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw4sKPIK9yqLCPNyNgozTQ2yNPcLyrYw8q5IDQgIdAk3CgwtdswKTyoO0Q3ITip1i08PdTSMdE0vKDd1CVQrBgAA6Ckr"
-    ];
-
-    // ----------------------
-    // คำถามสำเร็จรูป (แนะนำให้เยอะ ๆ ตามที่ขอ)
-    // ----------------------
-    const quickQuestionsList = [
-      "ภาพบรรยากาศที่พัก",
-      "มีกิจกรรมอะไรบ้าง",
-      "ราคาโคลนขัดผิวเท่าไหร่",
-      "ติดต่อ/เบอร์โทร",
-      "ที่อยู่/การเดินทาง",
-      "เวลาเช็คอินเช็คเอาต์",
-      "มีอาหารเช้าหรือไม่",
-      "การจองต้องทำอย่างไร",
-      "มีที่จอดรถไหม",
-      "รับจัดกรุ๊ป/งานเลี้ยงหรือไม่",
-      "นโยบายการยกเลิก",
-      "มีบริการสปา/มาส์กหน้าไหม",
-      "มีกิจกรรมชาวบ้านให้ร่วมไหม",
-      "ช่วงไหนเหมาะไปชมหิ่งห้อย",
-      "มีบริการจักรยานให้ยืมหรือไม่",
-      "สัตว์เลี้ยงเข้าพักได้ไหม",
-      "มีWi-Fiไหม",
-      "ปลอดภัยสำหรับเด็กไหม",
-      "มีห้องน้ำในตัวหรือแชร์",
-      "แนะนำที่เที่ยวใกล้เคียง",
-      "ราคา/โปรโมชั่นล่าสุด",
-      "รีวิวจากผู้เข้าพัก",
-      "บูธสินค้า/ของฝากมีอะไรขาย",
-      "มีตำแหน่งแผนที่ (Google Maps) ไหม",
-      "ขอรูปห้องพักภายใน"
-    ];
-
-    // ----------------------
-    // Render initial KB & UI
-    // ----------------------
-    const kbSummaryEl = document.getElementById('kbSummary');
-    kbSummaryEl.innerText = KB.overview + " • เบอร์: " + KB.phone + " • ที่อยู่: " + KB.address;
-
-    const tagsEl = document.getElementById('tags');
-    ["กิจกรรม","สปาโคลน","ชมหิ่งห้อย","ล่องเรือ","โฮมสเตย์","ชุมชน"].forEach(t => {
-      const e = document.createElement('div'); e.className='tag'; e.innerText=t; tagsEl.appendChild(e);
-    });
-
-    const galleryEl = document.getElementById('gallery');
-    images.forEach((src, idx) => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = `บ้านแหลมภาพ ${idx+1}`;
-      img.loading = 'lazy';
-      img.addEventListener('click', ()=> openModal(src));
-      galleryEl.appendChild(img);
-    });
-
-    const quickEl = document.getElementById('quickQuestions');
-    quickQuestionsList.forEach(q => {
-      const b = document.createElement('button');
-      b.className = 'qbtn';
-      b.innerText = q;
-      b.addEventListener('click', ()=> sendQuickQuestion(q));
-      quickEl.appendChild(b);
-    });
-
-    // ----------------------
-    // Chat logic (simple keyword-matching + some canned responses)
-    // ----------------------
-    const chatWindow = document.getElementById('chatWindow');
-    const input = document.getElementById('userInput');
-    const sendBtn = document.getElementById('sendBtn');
-
-    function addMsg(text, who='bot') {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
-      bubble.innerText = text;
-      wrapper.appendChild(bubble);
-      chatWindow.appendChild(wrapper);
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
-
-    function sendQuickQuestion(q) {
-      addMsg(q,'user');
-      // short delay to simulate thinking
-      setTimeout(()=> {
-        const ans = findAnswer(q);
-        addMsg(ans,'bot');
-      }, 250);
-    }
-
-    sendBtn.addEventListener('click', ()=> {
-      const txt = input.value.trim();
-      if(!txt) return;
-      addMsg(txt,'user');
-      input.value = '';
-      setTimeout(()=> {
-        const ans = findAnswer(txt);
-        addMsg(ans,'bot');
-      }, 300);
-    });
-
-    input.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); sendBtn.click(); }
-    });
-
-    // welcome
-    addMsg("สวัสดีครับ! ผมเป็นบอทข้อมูลบ้านแหลมโฮมสเตย์ — เลือกคำถามด้านล่างหรือพิมพ์คำถามได้เลยครับ");
-
-    // keyword matching function
-    function findAnswer(q) {
-      const ql = q.toLowerCase();
-
-      // mapping inputs to answers
-      if(/(ภาพ|รูป|gallery|บรรยากาศ|รูปภาพ|รูปที่พัก)/.test(ql)) {
-        return "ในแกลเลอรีมีภาพบรรยากาศของที่พัก เรือล่องชมธรรมชาติ และกิจกรรมสปาโคลน — คลิกภาพเพื่อขยายดูเพิ่มเติมครับ";
-      }
-      if(/(กิจกรรม|ทำอะไร|มีกิจกรรม)/.test(ql)) {
-        return "กิจกรรมเด่น: \n- " + KB.activities.join("\n- ");
-      }
-      if(/(โคลน|สปา|มาร์ค|ราคาโคลน|ราคา)/.test(ql)) {
-        return "สินค้าตัวอย่าง:\n" + KB.products.map(p => `${p.name} — ${p.price} — ${p.desc}`).join("\n");
-      }
-      if(/(ติดต่อ|โทร|เบอร์|phone|contact)/.test(ql)) {
-        return `ติดต่อ: โทร ${KB.phone}\nที่อยู่: ${KB.address}`;
-      }
-      if(/(ที่อยู่|เดินทาง|map|google)/.test(ql)) {
-        return `ที่อยู่: ${KB.address}\nแนะนำ: ใช้ Google Maps ค้นคำว่า "บ้านแหลมโฮมสเตย์" เพื่อดูเส้นทางหรือแชร์ตำแหน่ง`;
-      }
-      if(/(เช็คอิน|checkin|เช็คเอาต์|checkout|เวลาเช็ค)/.test(ql)) {
-        return KB.checkin;
-      }
-      if(/(จอง|วิธีจอง|การจอง|book)/.test(ql)) {
-        return "การจอง: แนะนำติดต่อทางเบอร์โทรหรือช่องทาง social ของที่พัก เพื่อเช็ควันว่างและวิธีการชำระเงิน";
-      }
-      if(/(จอด|ที่จอด|parking)/.test(ql)) {
-        return "มีที่จอดรถสำหรับผู้เข้าพัก (จำนวนจำกัด) แนะนำสำรองล่วงหน้าหากมากับรถจำนวนมาก";
-      }
-      if(/(กรุ๊ป|รับจัด|งานเลี้ยง|จัดงาน)/.test(ql)) {
-        return "รับจัดกรุ๊ปเล็ก ๆ และกิจกรรมชุมชน ติดต่อแจ้งจำนวนและวันที่ล่วงหน้าเพื่อเตรียมอาหารและกิจกรรม";
-      }
-      if(/(ยกเลิก|นโยบายการยกเลิก|cancel)/.test(ql)) {
-        return "นโยบายการยกเลิก: แจ้งยกเลิกล่วงหน้าอย่างน้อย 7 วันเพื่อคืนเงิน (ขึ้นกับข้อตกลง ติดต่อที่พักเพื่อรายละเอียด)";
-      }
-      if(/(สัตว์|สัตว์เลี้ยง|pet)/.test(ql)) {
-        return "กรุณาสอบถามที่พักโดยตรงสำหรับนโยบายสัตว์เลี้ยง บางที่อนุญาตเฉพาะบางชนิด/ขนาดและอาจมีค่าใช้จ่ายเพิ่มเติม";
-      }
-      if(/(wifi|wi-fi|internet)/.test(ql)) {
-        return "มีบริการ Wi-Fi สำหรับผู้เข้าพัก (ความเร็วอาจขึ้นกับตำแหน่งและจำนวนผู้ใช้งาน)";
-      }
-      if(/(เด็ก|child|เด็กเล็ก)/.test(ql)) {
-        return "สถานที่เหมาะสำหรับครอบครัว แต่ควรระมัดระวังบริเวณน้ำและคลอง ดูแลเด็กเล็กอย่างใกล้ชิด";
-      }
-      if(/(ใกล้|เที่ยวใกล้|ที่เที่ยวใกล้)/.test(ql)) {
-        return "สถานที่แนะนำใกล้เคียง: ชุมชนท้องถิ่น, แหล่งชิมอาหารทะเล, ป่าชายเลน และตลาดท้องถิ่น — สามารถเช่าจักรยานหรือพายเรือเที่ยวได้";
-      }
-      if(/(รูปห้อง|ห้องพัก|ภายใน)/.test(ql)) {
-        return "มีห้องพักให้เลือกหลายแบบ — ดูภาพห้องพักภายในที่แกลเลอรีด้านขวา หากต้องการรูปเพิ่มเติมแจ้งชื่อห้องที่สนใจได้ครับ";
-      }
-      if(/(ราคา|ราคาห้อง|rates|โปรโมชั่น)/.test(ql)) {
-        return "ราคาอาจเปลี่ยนตามฤดูกาลและจำนวนคน กรุณาติดต่อเพื่อสอบถามราคา/โปรโมชั่นล่าสุด";
-      }
-      if(/(รีวิว|ความเห็น|feedback)/.test(ql)) {
-        return "รีวิว: โดยทั่วไปผู้เข้าพักชื่นชอบบรรยากาศชุมชนและกิจกรรมโคลน/ชมหิ่งห้อย — แนะนำดูรีวิวเพิ่มเติมจากหน้าเพจหรือแหล่งจองต่าง ๆ";
-      }
-
-      // fallback: keyword lookup in KB text
-      const bigText = (KB.overview + " " + KB.activities.join(" ") + " " + KB.products.map(p=>p.name+" "+p.desc).join(" ") + " " + KB.notes + " " + KB.address + " " + KB.phone).toLowerCase();
-      const words = ql.split(/\W+/).filter(Boolean);
-      const matches = [];
-      for(const w of words){
-        if(w.length < 3) continue;
-        if(bigText.includes(w)) matches.push(w);
-      }
-      if(matches.length){
-        return "ผมพบข้อมูลที่เกี่ยวกับ: " + [...new Set(matches)].join(", ") + "\nลองถามเป็นคำถามเจาะจง เช่น 'ราคาโคลนขัดผิวเท่าไหร่' หรือ 'ช่วงไหนชมหิ่งห้อยได้'";
-      }
-
-      // if still not found
-      return "ขอโทษครับ ผมยังไม่มีข้อมูลเฉพาะสำหรับคำถามนี้ในฐานข้อมูล ถ้าต้องการผมสามารถแนะนำให้ติดต่อที่พักโดยตรงหรือเพิ่มคำถามที่ต้องการให้ผมช่วยค้นเพิ่มเติมได้ครับ";
-    }
-
-    // ----------------------
-    // Modal viewer functions
-    // ----------------------
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    const modalClose = document.getElementById('modalClose');
-    function openModal(src){
-      modalImg.src = src;
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
-    }
-    function closeModal(){
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden','true');
-      modalImg.src = '';
-    }
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e)=>{
-      if(e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e)=> {
-      if(e.key === 'Escape') closeModal();
-    });
-
-  </script>
 </body>
 </html>
+
