@@ -1,320 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <title>TikTokSHOP</title>
-  <link rel="icon" href="favicon.ico" />
-  <meta name="description" content="รวมสินค้าเกมเมอร์ TikTokSHOP BY Thewarit Poom" />
-
-  <!-- ✅ SEO & Open Graph Tags -->
-  <meta property="og:title" content="TikTokSHOP BY Thewarit Poom" />
-  <meta property="og:description" content="รวมสินค้าเกมมิ่ง ขายดี พร้อมลิงก์สั่งซื้อจาก TikTok Shop" />
-  <meta property="og:image" content="https://wallpapers.com/images/hd/tiktok-logo-patterns-apgm6olmczc7cxq7.jpg" />
-  <meta property="og:url" content="https://your-website-link.com" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Prompt&display=swap" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chatbot — บ้านแหลมโฮมสเตย์ (Demo)</title>
   <style>
-    body {
-      font-family: 'Prompt', sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #fff;
-      background-color: #111;
-      overflow-x: hidden;
-      position: relative;
+    :root{
+      --bg:#0f1721; --card:#0b1220; --accent:#06b6d4; --text:#e6eef6;
     }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('https://wallpapers.com/images/hd/tiktok-logo-patterns-apgm6olmczc7cxq7.jpg') no-repeat center center;
-      background-size: cover;
-      z-index: -1;
-      filter: brightness(0.3);
-    }
-
-    .ticker {
-      background: #ff2d55;
-      color: white;
-      font-weight: bold;
-      padding: 10px 0;
-      text-align: center;
-      font-size: 14px;
-      overflow: hidden;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .ticker span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: ticker 12s linear infinite;
-      white-space: nowrap;
-    }
-
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-
-    h1 {
-      font-family: 'Anton', sans-serif;
-      font-size: 44px;
-      text-align: center;
-      color: #fff;
-      margin: 30px 0 0;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-      text-transform: uppercase;
-      animation: popIn 0.7s ease-out;
-    }
-
-    h1 .byline {
-      display: block;
-      font-family: 'Prompt', sans-serif;
-      font-size: 20px;
-      font-weight: normal;
-      color: #ffffffcc;
-    }
-
-    .subtitle {
-      text-align: center;
-      font-size: 18px;
-      color: #ddd;
-      margin: 10px 0 30px;
-    }
-
-    .product-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 16px;
-      padding: 0 16px 40px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .product {
-      background: #1e1e1e;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 6px 14px rgba(255, 45, 85, 0.3);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      transition: transform 0.3s ease;
-    }
-
-    .product:hover {
-      transform: translateY(-4px);
-    }
-
-    .product img {
-      width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-    }
-
-    .product h2 {
-      font-size: 14px;
-      margin: 12px;
-      color: #eee;
-      flex-grow: 1;
-      line-height: 1.5;
-    }
-
-    .product a {
-      margin: 0 12px 12px;
-      padding: 10px 0;
-      background: linear-gradient(135deg, #ff416c, #ff4b2b);
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      text-align: center;
-      border-radius: 8px;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-
-    .product a:hover {
-      background: linear-gradient(135deg, #ff6a88, #ff5e62);
-      transform: scale(1.03);
-    }
-
-    .badge {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: #ff3b3b;
-      color: #fff;
-      font-size: 12px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.95); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .more-btn {
-      display: block;
-      width: fit-content;
-      margin: 40px auto;
-      background: #ff2d55;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(255, 45, 85, 0.3);
-      transition: background 0.3s ease;
-    }
-
-    .more-btn:hover {
-      background: #ff4a73;
-    }
-
-    /* ✅ Scroll to top button */
-    #scrollTopBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #ff2d55;
-      color: white;
-      border: none;
-      padding: 12px 16px;
-      border-radius: 50%;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 999;
-      box-shadow: 0 0 10px rgba(255, 45, 85, 0.4);
+    html,body{height:100%; margin:0; font-family:Inter, "Noto Sans Thai", sans-serif; background:linear-gradient(180deg,#06121a 0%, #072434 100%); color:var(--text);}
+    .container{max-width:760px; margin:18px auto; padding:12px;}
+    .header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#053046,#0a6b7a);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;}
+    .card{background:rgba(255,255,255,0.03); border-radius:14px; padding:14px; box-shadow:0 6px 18px rgba(2,6,23,0.6);}
+    .chatWindow{height:60vh; overflow:auto; padding:12px; border-radius:10px; background:linear-gradient(0deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));}
+    .msg{margin:8px 0; display:flex;}
+    .msg.user{justify-content:flex-end;}
+    .bubble{max-width:78%; padding:10px 12px; border-radius:12px; line-height:1.4;}
+    .bubble.user{background:linear-gradient(90deg,var(--accent),#0ea5a8); color:#002;}
+    .bubble.bot{background:rgba(255,255,255,0.04); color:var(--text);}
+    .meta{font-size:12px; opacity:0.7; margin-bottom:6px;}
+    .controls{display:flex; gap:8px; margin-top:10px;}
+    .input{flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--text);}
+    button{background:var(--accent); color:#002; border:none; padding:10px 14px; border-radius:10px; font-weight:600; cursor:pointer;}
+    .hint{font-size:13px; opacity:0.85; margin-top:8px;}
+    .kb-item{margin:8px 0; padding:8px 10px; border-radius:8px; background:rgba(255,255,255,0.02);}
+    @media(max-width:520px){
+      .chatWindow{height:55vh;}
+      .logo{width:48px;height:48px;}
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">บล</div>
+      <div>
+        <div style="font-weight:800; font-size:18px">บ้านแหลมโฮมสเตย์ — Chat demo</div>
+        <div style="font-size:13px; opacity:0.8">ถามเรื่องที่พัก กิจกรรม ผลิตภัณฑ์ และการติดต่อได้</div>
+      </div>
+    </div>
 
-  <div class="ticker"><span>กรุณาเปิดหน้านี้ใน <strong>เบราว์เซอร์อื่นๆ</strong> เพื่อสามารถกดซื้อสินค้าได้ (หากเปิดผ่าน TikTok จะไม่สามารถกดสั่งซื้อได้)</span></div>
+    <div class="card">
+      <div class="chatWindow" id="chatWindow" aria-live="polite"></div>
 
-  <h1>
-    TikTokSHOP
-    <span class="byline">BY Thewarit Poom</span>
-  </h1>
-  <div class="subtitle">รวมสินค้าเกมเมอร์ ขายดีประจำร้าน</div>
+      <div class="controls" style="margin-top:12px;">
+        <input id="userInput" class="input" placeholder="พิมพ์คำถาม เช่น 'ที่พักมีอะไรบ้าง' หรือ 'ติดต่อยังไง'..." />
+        <button id="sendBtn">ส่ง</button>
+      </div>
 
-  <div class="product-list">
-    <!-- สินค้า 1 -->
-    <div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://www.fantech.com.np/wp-content/uploads/2025/04/bf30284d.jpg" alt="FANTECH WG9" />
-  <h2>FANTECH เมาส์เกมมิ่งไร้สาย Optical DPI ปรับได้ รุ่น WG9</h2>
-  <a href="https://www.tiktok.com/view/product/1730808036150315735" target="_blank">ซื้อสินค้า</a>
-</div>
+      <div class="hint">ตัวอย่างคำถาม: "มีกิจกรรมอะไรบ้าง", "ราคาโคลนขัดผิวเท่าไหร่", "ที่อยู่และเบอร์โทร"</div>
+    </div>
 
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/th-11134207-7rasj-m63u7dqzyuuuf5" alt="FANTECH Mousepad" />
-  <h2>คีย์บอร์ด HE - AULA WIN60HE / WIN68HE - Rapid Trigger Wired Keyboard Magnetic Switch คีย์ไทย</h2>
-  <a href="https://vt.tiktok.com/ZSk1hGyxv/" target="_blank">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98r-m012iklg3ukh25@resize_w900_nl.webp" alt="FANTECH WGP13S" />
-  <h2>FANTECH WGP13S จอยเกมมิ่งสไตล์ X-BOX Wireless 2.4Ghz</h2>
-  <a href="https://vt.tiktok.com/ZSho38rbD/" target="_blank">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/th-11134207-7r98q-lyzc3pdftei170@resize_w900_nl.webp" alt="DAHUA Monitor" />
-  <h2>DAHUA Monitor 22” FHD 100Hz Frameless Ultra Slim</h2>
-  <a href="https://vt.tiktok.com/ZSk1dEJef/" target="_blank">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/th-11134207-7rasf-m59qzcnutczbb5" alt="ขาตั้งจอ VESA" />
-  <h2>เมาส์เกมมิ่งพร้อมแท่นชาร์จ Ajazz AJ159P MC Tri-Mod(Wired+2.4G+BT) Wireless Magnetic Charging Mouse รับประกันสินค้า 1 ปี</h2>
-  <a href="https://vt.tiktok.com/ZSk1hH2H6/" target="_blank">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/sg-11134201-7rd60-m71pve3dzixmc8.webp" alt="Ajazz AK680 Max" />
-  <h2>Ajazz AK680 Max คีย์บอร์ดสวิตช์แม่เหล็ก 8K Rate, 0.125 ms</h2>
-  <a href="https://vt.tiktok.com/ZSk1dtCpC/" target="_blank">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/th-11134207-7r992-lzlq3o90jngha0" alt="สายคีย์บอร์ด 8K คุณภาพสูง" />
-  <h2>สายคีย์บอร์ด 8K คุณภาพสูง สายเชื่อมต่อคีย์บอร์ด Coiled Cable Keyboard สำหรับคีย์บอร์ด USB to C สายถัก สายม้วน สายเกลียว</h2>
-  <a href="https://vt.tiktok.com/ZSk1hVf3R/" target="_blank">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/th-11134207-7rasj-m3dnlx9xfqi014" alt="Nubwo คีย์บอร์ด Mechanical" />
-  <h2>Nubwo คีย์บอร์ด Mechanical เชื่อมได้ 3 โหมด BT / 2.4G / TYPE- C มีให้เลือก 2 Switch Blue / Red รุ่น NK51 รับประกัน 1ปี</h2>
-  <a href="https://vt.tiktok.com/ZSk1hpmAQ/" target="_blank">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/cn-11134207-7r98o-lpharbu4uo2k12" alt="VXE Dragonfly R1 SE+" />
-  <h2>VXE Dragonfly R1 SE+ เมาส์บลูทูธไร้สาย น้ำหนักเบา (รับประกัน 1ปี)</h2>
-  <a href="https://vt.tiktok.com/ZSk1kNgST/" target="_blank">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/th-11134207-7rasm-m3d345k4d71k77" alt="VXE Dragonfly R1 SE+" />
-  <h2>คีย์บอร์ดเกมมิ่ง Ajazz AK680 Max HE HiFi RGB Wired Magnetic Hifi Switch Mechanical Keyboard รับประกันสินค้า 1 ปี</h2>
-  <a href="https://vt.tiktok.com/ZSkJkjXMN/">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/sg-11134201-22120-3ak3ve1k8alv52" />
-  <h2>life ขาตั้งจอคอม รุ่น ES-CS95 แบบ 1จอ รองรับ 17นิ้ว – 32นิ้ว รับน้ำหนักสูงสุด 9kg หมุนได้ 360องศา ก้มเงยได้ ตกแต่งคอม</h2>
-  <a href="https://vt.tiktok.com/ZSkJhE6Lc/">ซื้อสินค้า</a>
-</div>
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-th.img.susercontent.com/file/sg-11134201-7rdxp-m0jzxkumhhj8cf" />
-  <h2>MAD 60 HE คีย์บอร์ดสวิตช์แม่เหล็กสําหรับเล่นเกม การเชื่อมต่อแบบมีสาย Hot Swap แบบเต็มคีย์</h2>
-  <a href="https://vt.tiktok.com/ZSkJhE6Lc/">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://p16-oec-va.ibyteimg.com/tos-maliva-i-o3syd03w52-us/7a886f79eb4340d2b3cc298ef9eff7d5~tplv-o3syd03w52-resize-webp:800:800.webp?dr=15584&t=555f072d&ps=933b5bde&shp=6ce186a1&shcp=e1be8f53&idc=my&from=1826719393" />
-  <h2>แท่นวางโน๊ตบุ๊ค ขาตั้งโน๊ตบุ๊คพกพา ขาตั้งแท็บเล็ต พกพาง่าย ปรับระดับได้ 6 ระดับ</h2>
-  <a href="https://vt.tiktok.com/ZSkJytF45/">ซื้อสินค้า</a>
-</div>
-
-<div class="product">
-  <span class="badge">ขายดี</span>
-  <img src="https://down-ph.img.susercontent.com/file/sg-11134201-7rdyu-m0l9sxcuptww2e" />
-  <h2>Keyboard Strap Keyboard Ribbon เพื่อเพิ่มสไตล์และความสะดวกสบาย</h2>
-  <a href="https://vt.tiktok.com/ZSkJyauAP/">ซื้อสินค้า</a>
-</div>
-
-
-    
+    <div style="margin-top:12px;">
+      <div style="font-size:14px; font-weight:700; margin-bottom:6px">แหล่งข้อมูล (knowledge base)</div>
+      <div class="kb-item" id="kbPreview"></div>
+    </div>
   </div>
 
-  <!-- ✅ ปุ่มดูสินค้าเพิ่มเติม -->
-  <a class="more-btn" href="https://www.tiktok.com/@thewarit_poom?_t=ZS-8wkYb31As6b&_r=1" target="_blank">ดูสินค้าเพิ่มเติมใน TikTok Shop</a>
+  <script>
+  // ---- ข้อมูลที่ดึงมาจากหน้าเว็บไซต์ baanlaemhomestay.com (สรุปย่อ) ----
+  // ถ้าต้องการอัพเดตข้อมูลจริง ให้แก้ข้อมูลในตัวแปรนี้หรือเชื่อม endpoint backend ที่ดึงสดจากเว็บไซต์
+  const KB = {
+    title: "บ้านแหลมโฮมสเตย์",
+    overview: "ที่พักโฮมสเตย์ สัมผัสวิถีชีวิตชุมชน สัมผัสธรรมชาติ ชมหิ่งห้อย ล่องเรือจิบกาแฟแลหวัน และสปาโคลน",
+    address: "128/16 หมู่ 7 บ้านหน้าทับ ต.ท่าศาลา อ.ท่าศาลา จ.นครศรีธรรมราช",
+    phone: "065-513-7273",
+    activities: [
+      "ล่องเรือชมพระอาทิตย์ขึ้น / ล่องเรือจิบกาแฟแลหวัน",
+      "สปาโคลน / พอกโคลนทะเล",
+      "ชมหิ่งห้อยในตอนกลางคืน",
+      "ร่วมกิจกรรมชุมชน เช่น การทำเครื่องแกง, ทอหางอวน, ปั้นหม้อดิน",
+      "ตกปลา / ปั่นจักรยานในชุมชน / เก็บมัลเบอร์รี่"
+    ],
+    products: [
+      {name:"โคลนขัดผิว", price:"390 บาท", desc:"ขจัดเซลล์ผิวที่ตาย ช่วยให้ผิวกระจ่างใส"},
+      {name:"มาร์คหน้าโคลน", price:"300 บาท", desc:"อุดมไปด้วยแร่ธาตุตามธรรมชาติ มากกว่า 40 ชนิด"}
+    ],
+    notes: "ชุมชนบ้านแหลมเป็นชุมชนเล็กในตำบลท่าศาลา อาชีพหลักคือประมงขนาดเล็ก และมีวิถีชีวิตแบบพอเพียงที่เหมาะแก่การท่องเที่ยวเชิงชุมชน"
+  };
 
- 
+  // ใช้เพื่อโชว์สรุปฐานข้อมูลด้านล่าง
+  document.getElementById('kbPreview').innerText = KB.overview + " • เบอร์: " + KB.phone + " • ที่อยู่: " + KB.address;
 
+  // ---- ฟังก์ชันตอบคำถามแบบง่าย (keyword matching) ----
+  function findAnswer(q){
+    const ql = q.toLowerCase();
+
+    // 1) ตอบคำถามทั่วไป / เกี่ยวกับภาพรวม
+    if(/(ที่พัก|โฮมสเตย์|ที่พักมีอะไร|ที่พักแบบ)/.test(ql)){
+      return KB.overview + "\n\nกิจกรรมเด่น: " + KB.activities.join(" • ");
+    }
+    // 2) กิจกรรม
+    if(/(กิจกรรม|สปา|โคลน|หิ่งห้อย|ล่องเรือ|ชมหิ่งห้อย|พอกโคลน)/.test(ql)){
+      return "กิจกรรมที่มี: \n- " + KB.activities.join("\n- ");
+    }
+    // 3) สินค้า/ราคา
+    if(/(ราคา|โคลน|มาร์ค|สินค้า|ผลิตภัณฑ์)/.test(ql)){
+      return "สินค้าตัวอย่าง:\n" + KB.products.map(p => `${p.name} — ${p.price} — ${p.desc}`).join("\n");
+    }
+    // 4) ติดต่อ / ที่อยู่
+    if(/(ติดต่อ|เบอร์|โทร|ที่อยู่|อยู่ที่ไหน)/.test(ql)){
+      return `ติดต่อ:\nโทร ${KB.phone}\nที่อยู่: ${KB.address}`;
+    }
+    // 5) กิจกรรมตามเดือน / ปฏิทิน
+    if(/(เดือน|ปฏิทิน|ฤดู|เวลา)/.test(ql)){
+      return "กิจกรรมตามช่วงปี: มกราคม-พฤศจิกายน: ล่องเรือชมพระอาทิตย์ขึ้น และพอกโคลนทะเล. เดือนธันวาคม: ฤดูมรสุม มีกิจกรรมพายเรือในป่าชายเลนและชมวิถีชาวประมง.";
+    }
+
+    // 6) ถามอื่น ๆ: คืนคำตอบอิงจาก KB ด้วยการค้นหาคำสำคัญ
+    // ค้นหาในข้อความ KB ทั้งหมดแบบง่าย
+    const bigText = (KB.overview + " " + KB.activities.join(" ") + " " + KB.products.map(p=>p.name+" "+p.desc).join(" ") + " " + KB.notes).toLowerCase();
+    const words = ql.split(/\W+/).filter(Boolean);
+    let matches = [];
+    for(const w of words){
+      if(w.length < 3) continue;
+      if(bigText.includes(w)) matches.push(w);
+    }
+    if(matches.length){
+      // ถ้ามีคำที่ตรงกับ KB ให้คืนข้อความเกี่ยวกับคำเหล่านั้น
+      return "ผมพบข้อมูลที่เกี่ยวข้องกับคำว่า: " + [...new Set(matches)].join(", ") + "\n\nลองถามเป็นคำถามเฉพาะเจาะจงมากขึ้น เช่น 'ราคาโคลนขัดผิวเท่าไหร่' หรือ 'มีกิจกรรมชมหิ่งห้อยไหม'";
+    }
+
+    // 7) ถ้าไม่พบคำตอบ
+    return "ขอโทษครับ ผมยังไม่ทราบคำตอบสำหรับคำถามนี้จากฐานข้อมูลที่มีในตอนนี้ — ลองถามเป็นคำถามเฉพาะเจาะจงมากขึ้น หรือตรวจสอบหน้าเว็บหลักของ บ้านแหลมโฮมสเตย์ เพื่อข้อมูลเพิ่มเติม";
+  }
+
+  // ---- UI logic ----
+  const chatWindow = document.getElementById('chatWindow');
+  const input = document.getElementById('userInput');
+  const sendBtn = document.getElementById('sendBtn');
+
+  function addMessage(text, who='bot'){
+    const wrapper = document.createElement('div');
+    wrapper.className = 'msg ' + (who === 'user' ? 'user' : 'bot');
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble ' + (who === 'user' ? 'user' : 'bot');
+    bubble.innerText = text;
+    wrapper.appendChild(bubble);
+    chatWindow.appendChild(wrapper);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
+  sendBtn.addEventListener('click', ()=> {
+    const t = input.value.trim();
+    if(!t) return;
+    addMessage(t, 'user');
+    input.value = '';
+    // จำลองดีเลย์การคิดของบอทเล็กน้อย
+    setTimeout(()=> {
+      const ans = findAnswer(t);
+      addMessage(ans, 'bot');
+    }, 300);
+  });
+
+  // allow enter to send
+  input.addEventListener('keydown', (e)=> {
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendBtn.click();
+    }
+  });
+
+  // welcome message
+  addMessage("สวัสดี! ผมเป็นบอทข้อมูลบ้านแหลมโฮมสเตย์ ทดลองถามผมเกี่ยวกับที่พัก กิจกรรม สินค้า หรือการติดต่อได้เลยครับ");
+  </script>
 </body>
 </html>
